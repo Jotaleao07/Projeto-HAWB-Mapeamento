@@ -1,0 +1,417 @@
+/* RESET E CONFIGURAÇÕES GERAIS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 28px;
+    color: #189213;
+}
+
+.logo-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+}
+
+.logo-subtitle {
+    font-size: 11px;
+    color: #666;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    margin-left: 25px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    border-bottom: 2px solid #009639;
+    padding-bottom: 4px;
+}
+
+/* HERO SECTION */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 8%;
+    background-color: #e8f7ee; /* Fundo esverdeado bem claro */
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 550px;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    color: #046926;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: #445544;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.btn-cta {
+    background-color: #00a847;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cta:hover {
+    background-color: #008537;
+}
+
+.hero-image-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.doctor-img-female {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+/* ABOUT SECTION */
+.about-section {
+    display: flex;
+    align-items: center;
+    padding: 80px 8%;
+    gap: 60px;
+}
+
+.about-image-box {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.doctor-img-male {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.stamp-logo {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.8rem;
+    color: #111;
+    margin-bottom: 20px;
+}
+
+.about-text p {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.about-text .sub-text {
+    font-size: 0.95rem;
+    color: #777;
+}
+
+/* MISSION SECTION */
+.mission-section {
+    background-color: #f4faf6;
+    text-align: center;
+    padding: 60px 15%;
+}
+
+.mission-section h2 {
+    font-size: 2rem;
+    color: #111;
+    margin-bottom: 20px;
+}
+
+.mission-section p {
+    font-size: 1.1rem;
+    color: #445544;
+    line-height: 1.7;
+}
+
+/* QUOTE SECTION */
+.quote-container {
+    display: flex;
+    padding: 80px 8%;
+    gap: 50px;
+    align-items: center;
+}
+
+.quote-left {
+    flex: 1;
+}
+
+.title-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #009639;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.italic-quote {
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.small-desc {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.quote-right-card {
+    flex: 1;
+    background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 380px;
+    position: relative;
+}
+
+.card-overlay {
+    background: rgba(40, 60, 45, 0.75); /* Filtro escuro esverdeado */
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.card-badge {
+    background: #384d3d;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.card-overlay p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.card-footer-text {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(255,255,255,0.4);
+    padding-top: 10px;
+    width: 60%;
+}
+
+.instagram-handle {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* SERVICES SECTION (CARDS) */
+.services-section {
+    padding: 60px 8% 100px 8%;
+    text-align: center;
+}
+
+.services-section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.services-subtitle {
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.services-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.service-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 40px 30px;
+    width: 320px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.card-icon {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.service-card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #00642f; /* Verde escuro idêntico ao print */
+    color: #ffffff;
+    padding: 40px 60px 20px 60px;
+    font-size: 14px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-logo i {
+    font-size: 24px;
+}
+
+.footer-logo h4 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.footer-logo p {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.footer-info {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.footer-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 25px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.footer-slogan {
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* RESPONSIVIDADE BÁSICA */
+@media(max-width: 768px) {
+    .navbar, .hero-section, .about-section, .quote-container, .footer-top, .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    .nav-links { margin-top: 20px; }
+    .nav-links a { margin: 0 10px; }
+    .about-text h2, .title-with-icon { justify-content: center; }
+    .footer-contacts { margin-top: 15px; }
+    .footer-contacts span { margin: 0 10px; }
+}

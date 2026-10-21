@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #111111;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 28px;
+    color: #189213;
+}
+
+.logo-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+}
+
+.logo-subtitle {
+    font-size: 11px;
+    color: #666;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    margin-left: 25px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    border-bottom: 2px solid #009639;
+    padding-bottom: 4px;
+}
+
+/* GRID DE SINTOMAS */
+.sintomas-main {
+    max-width: 1000px;
+    margin: 40px auto 80px auto;
+    padding: 0 20px;
+}
+
+.sintomas-main h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #666666;
+    margin-bottom: 35px;
+}
+
+.sintomas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+/* CARD DO SINTOMA (Escondendo checkbox original) */
+.sintoma-card {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 18px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    transition: border-color 0.15s ease;
+}
+
+.sintoma-card input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Quadrado customizado cinza padrão */
+.custom-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #00a847;
+    border-radius: 2px;
+    margin-right: 15px;
+    display: inline-block;
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* Estilo ativo ao marcar - Borda verde na caixa toda */
+.sintoma-card.selected-active {
+    border: 1px solid #00a847;
+    background-color: #f7faf8;
+}
+
+/* Ícone de "Check" interno quando selecionado */
+.sintoma-card input:checked ~ .custom-checkbox::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #00a847;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.sintoma-label {
+    font-size: 0.95rem;
+    color: #1a202c;
+    font-weight: 500;
+}
+
+/* BOTÃO ANALISAR */
+.btn-analisar {
+    background-color: #00a847;
+    color: white;
+    border: 1px solid #008537;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* SEÇÃO DE RESULTADOS */
+.resultado-container {
+    margin-top: 40px;
+}
+
+.resultado-box {
+    display: none; /* Controlado via JS */
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.resultado-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 25px;
+}
+
+.resultado-header h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.resultado-body {
+    padding: 25px;
+}
+
+.resultado-body p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #2d3748;
+}
+
+.atendimento-lista {
+    margin-top: 20px;
+}
+
+/* ESTILIZAÇÃO ESPECÍFICA - EMERGÊNCIA */
+.box-emergencia {
+    border: 1px solid #e53e3e;
+    background-color: #fffaf5;
+}
+.box-emergencia .resultado-header {
+    background-color: #fff0f0;
+    color: #c53030;
+    border-bottom: 1px solid #fed7d7;
+}
+.warning-alert {
+    color: #e53e3e !important;
+    font-weight: 700;
+}
+.btn-action-red {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* ESTILIZAÇÃO ESPECÍFICA - UPA */
+.box-upa {
+    border: 1px solid #dd6b20;
+    background-color: #fffaf0;
+}
+.box-upa .resultado-header {
+    background-color: #feebc8;
+    color: #dd6b20;
+    border-bottom: 1px solid #fbd38d;
+}
+.btn-action-orange {
+    background-color: #dd6b20;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* ESTILIZAÇÃO ESPECÍFICA - UBS */
+.box-ubs {
+    border: 1px solid #00a847;
+    background-color: #f7faf8;
+}
+.box-ubs .resultado-header {
+    background-color: #e6f9ed;
+    color: #005c23;
+    border-bottom: 1px solid #c6f6d5;
+}
+.btn-action-green {
+    background-color: #00a847;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #00642f; /* Verde escuro idêntico ao print */
+    color: #ffffff;
+    padding: 40px 60px 20px 60px;
+    font-size: 14px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-logo i {
+    font-size: 24px;
+}
+
+.footer-logo h4 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.footer-logo p {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.footer-info {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.footer-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 25px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.footer-slogan {
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .sintomas-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-top, .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .footer-info span { margin: 0 10px; }
+}

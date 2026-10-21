@@ -1,0 +1,352 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #111111;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 28px;
+    color: #189213;
+}
+
+.logo-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+}
+
+.logo-subtitle {
+    font-size: 11px;
+    color: #666;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    margin-left: 25px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    border-bottom: 2px solid #009639;
+    padding-bottom: 4px;
+}
+
+/* MAIN CONTAINER */
+.locais-container {
+    max-width: 1200px;
+    margin: 40px auto 80px auto;
+    padding: 0 20px;
+}
+
+.locais-container h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #666666;
+    margin-bottom: 35px;
+}
+
+/* FILTROS */
+.filter-section {
+    margin-bottom: 35px;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: #4a5568;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-filter {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e0;
+    color: #2d3748;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-filter.active {
+    background-color: #00a847;
+    border-color: #00a847;
+    color: #ffffff;
+}
+
+/* CARD GRID - 2 COLUNAS */
+.locais-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.local-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 25px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.card-header-tags {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.tag-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    color: #ffffff;
+    border-radius: 2px;
+}
+
+.badge-upa { background-color: #00a847; }
+.badge-ubs { background-color: #0073e6; }
+
+.tag-city {
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+.local-card h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #1a202c;
+}
+
+.info-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.info-line .icon {
+    font-size: 1.1rem;
+    width: 20px;
+}
+
+.info-line p {
+    font-size: 0.9rem;
+    color: #4a5568;
+    line-height: 1.4;
+}
+
+/* TAGS DE SERVIÇOS */
+.servicos-section {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.servicos-title {
+    font-size: 0.8rem;
+    color: #718096;
+    margin-bottom: 8px;
+}
+
+.servicos-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.servicos-tags span {
+    background-color: #f1f5f9;
+    color: #4a5568;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+/* BOTÃO MAPA INTERATIVO */
+.btn-toggle-map {
+    background-color: #ffffff;
+    border: 1px solid #00a847;
+    color: #00a847;
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    transition: all 0.2s ease;
+}
+
+/* CONTAINER DINÂMICO DO MAPA */
+.map-wrapper {
+    display: none;
+    margin-top: 20px;
+    border-top: 1px dashed #cbd5e0;
+    padding-top: 20px;
+}
+
+.map-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mock-map {
+    height: 190px;
+    background-color: #e2e8f0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #cbd5e0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #718096;
+    background-image: linear-gradient(45deg, #cbd5e0 25%, #e2e8f0 25%, #e2e8f0 50%, #cbd5e0 50%, #cbd5e0 75%, #e2e8f0 75%, #e2e8f0 100%);
+    background-size: 30px 30px;
+}
+
+.btn-google-maps {
+    background-color: #00a847;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #00642f; /* Verde escuro idêntico ao print */
+    color: #ffffff;
+    padding: 40px 60px 20px 60px;
+    font-size: 14px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-logo i {
+    font-size: 24px;
+}
+
+.footer-logo h4 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.footer-logo p {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.footer-info {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.footer-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 25px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.footer-slogan {
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* RESPONSIVIDADE COMPLETA */
+@media (max-width: 900px) {
+    .locais-grid {
+        grid-template-columns: 1fr; /* Quebra para uma única coluna */
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .footer-top, .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .footer-info span { margin: 0 10px; }
+}

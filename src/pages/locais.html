@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAWB - Locais de Atendimento</title>
+    <link rel="stylesheet" href="/src/css/locais.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+     <header class="navbar">
+        <div class="logo-container">
+            <i class="fa-solid fa-heart-pulse logo-icon"></i>
+            <div>
+                <h1 class="logo-title">HAWB</h1>
+                <p class="logo-subtitle">O melhor mapeamento de saúde</p>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a href="inicio.html" class="active">Início</a>
+            <a href="sintomas.html">Sintomas</a>
+            <a href="locais.html">Locais</a>
+            <a href="tipos.html">Tipos</a>
+            <a href="equipe.html">Equipe</a>
+        </nav>
+    </header>
+
+    <main class="locais-container">
+        <h1>Locais de Atendimento</h1>
+        <p class="subtitle">Encontre UPAs e UBS próximas a você</p>
+
+        <section class="filter-section">
+            <div class="filter-group">
+                <label>Tipo de unidade:</label>
+                <div class="filter-buttons" id="filter-type">
+                    <button class="btn-filter active" data-type="todos">Todos</button>
+                    <button class="btn-filter" data-type="upa">UPA</button>
+                    <button class="btn-filter" data-type="ubs">UBS</button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Cidade:</label>
+                <div class="filter-buttons" id="filter-city">
+                    <button class="btn-filter active" data-city="todos">Todas</button>
+                    <button class="btn-filter" data-city="salvador">Salvador</button>
+                    <button class="btn-filter" data-city="camacari">Camaçari</button>
+                    <button class="btn-filter" data-city="lauro">Lauro de Freitas</button>
+                    <button class="btn-filter" data-city="dias">Dias d'Ávila</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="locais-grid" id="locais-grid">
+            
+            <div class="local-card" data-type="upa" data-city="salvador" id="card-brotas">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-upa">UPA</span>
+                    <span class="tag-city">Salvador</span>
+                </div>
+                <h2>UPA Brotas</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Rua Catarina Paraguacu - Brotas</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3611-1500</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>24 horas</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Urgência</span><span>Emergência</span><span>Raio-X</span><span>Laboratório</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('brotas')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-brotas">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UPA Brotas</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="local-card" data-type="upa" data-city="salvador" id="card-cristovao">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-upa">UPA</span>
+                    <span class="tag-city">Salvador</span>
+                </div>
+                <h2>UPA São Cristóvão</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Rua Direta de São Cristóvão - São Cristóvão</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3611-1600</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>24 horas</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Urgência</span><span>Emergência</span><span>Raio-X</span><span>Eletrocardiograma</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('cristovao')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-cristovao">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UPA São Cristóvão</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="local-card" data-type="ubs" data-city="salvador" id="card-carlos-gomes">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-ubs">UBS</span>
+                    <span class="tag-city">Salvador</span>
+                </div>
+                <h2>UBS Carlos Gomes</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Rua Carlos Gomes, 270 - Centro</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3202-1234</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>07:00 às 17:00</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Vacinação</span><span>Consultas</span><span>Pré-Natal</span><span>Preventivo</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('carlos-gomes')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-carlos-gomes">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UBS Carlos Gomes</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="local-card" data-type="upa" data-city="lauro" id="card-itinga">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-upa">UPA</span>
+                    <span class="tag-city">Lauro de Freitas</span>
+                </div>
+                <h2>UPA Itinga</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Avenida São Cristóvão - Itinga</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3378-4500</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>24 horas</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Urgência</span><span>Ortopedia</span><span>Pediatria</span><span>Raio-X</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('itinga')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-itinga">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UPA Itinga</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="local-card" data-type="ubs" data-city="lauro" id="card-praiana">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-ubs">UBS</span>
+                    <span class="tag-city">Lauro de Freitas</span>
+                </div>
+                <h2>UBS Vila Praiana</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Rua Praia de Pajussara - Vila Praiana</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3288-8900</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>07:00 às 16:00</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Clínica Geral</span><span>Enfermagem</span><span>Dentista</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('praiana')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-praiana">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UBS Vila Praiana</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="local-card" data-type="upa" data-city="camacari" id="card-gleba-a">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-upa">UPA</span>
+                    <span class="tag-city">Camaçari</span>
+                </div>
+                <h2>UPA Gleba A</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Avenida Concêntrica - Gleba A</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3622-7700</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>24 horas</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Urgência</span><span>Suturas</span><span>Medicação</span><span>Pediatria</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('gleba-a')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-gleba-a">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UPA Gleba A</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="local-card" data-type="ubs" data-city="camacari" id="card-phoc">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-ubs">UBS</span>
+                    <span class="tag-city">Camaçari</span>
+                </div>
+                <h2>UBS Phoc II</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Rua Pará, Phoc II - Camaçari</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3622-5511</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>07:00 às 17:00</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Hiperdia</span><span>Vacinação</span><span>Curativos</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('phoc')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-phoc">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UBS Phoc II</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="local-card" data-type="upa" data-city="dias" id="card-upa-dias">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-upa">UPA</span>
+                    <span class="tag-city">Dias d'Ávila</span>
+                </div>
+                <h2>UPA Dias d'Ávila</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Avenida Raul Seixas, Centro</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3648-3500</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>24 horas</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Urgência</span><span>Estabilização</span><span>Exames de Sangue</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('upa-dias')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-upa-dias">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UPA Dias d'Ávila</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="local-card" data-type="ubs" data-city="dias" id="card-concordia">
+                <div class="card-header-tags">
+                    <span class="tag-badge badge-ubs">UBS</span>
+                    <span class="tag-city">Dias d'Ávila</span>
+                </div>
+                <h2>UBS Concórdia</h2>
+                <div class="info-line">
+                    <span class="icon">📍</span>
+                    <p>Rua da Concórdia - Bairro Concórdia</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">📞</span>
+                    <p>(71) 3648-1199</p>
+                </div>
+                <div class="info-line">
+                    <span class="icon">🕒</span>
+                    <p>08:00 às 16:00</p>
+                </div>
+                <div class="servicos-section">
+                    <p class="servicos-title">Serviços disponíveis:</p>
+                    <div class="servicos-tags">
+                        <span>Distribuição de Medicamentos</span><span>Acompanhamento</span>
+                    </div>
+                </div>
+                <button class="btn-toggle-map" onclick="toggleMap('concordia')">
+                    <span class="map-icon"></span> <span class="btn-text">Como Chegar</span>
+                </button>
+                <div class="map-wrapper" id="map-concordia">
+                    <div class="map-box">
+                        <div class="mock-map">Roteamento para UBS Concórdia</div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-google-maps">Abrir no Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <div>
+                    <h4>HAWB | Health and Well-being</h4>
+                    <p>O melhor mapeamento de saúde</p>
+                </div>
+            </div>
+            <div class="footer-info">
+                <span><i class="fa-solid fa-location-dot"></i> Camaçari/BA</span>
+                <span><i class="fa-solid fa-envelope"></i> hawb.med@gmail.com</span>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 - HAWB | Health and Well-being</p>
+            <p class="footer-slogan">Mais que produção, uma relação com você!</p>
+        </div>
+    </footer>
+
+    <script src="/src/js/locais.js"></script>
+</body>
+</html>

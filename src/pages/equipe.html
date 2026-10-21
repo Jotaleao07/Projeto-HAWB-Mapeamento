@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAWB - Nossa Equipe</title>
+    <link rel="stylesheet" href="/src/css/equipe.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <i class="fa-solid fa-heart-pulse logo-icon"></i>
+            <div>
+                <h1 class="logo-title">HAWB</h1>
+                <p class="logo-subtitle">O melhor mapeamento de saúde</p>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a href="inicio.html" class="active">Início</a>
+            <a href="sintomas.html">Sintomas</a>
+            <a href="locais.html">Locais</a>
+            <a href="tipos.html">Tipos</a>
+            <a href="equipe.html">Equipe</a>
+        </nav>
+    </header>
+
+    <main class="equipe-container">
+        
+        <section class="section-header">
+            <div class="title-with-icon">
+                <span class="main-icon">👥</span>
+                <h1>Nossa Equipe</h1>
+            </div>
+            <p class="subtitle">Conheça os desenvolvedores e idealizadores por trás da plataforma HAWB</p>
+        </section>
+
+        <section class="equipe-grid">
+            
+            <div class="membro-card" data-member="alisson">
+                <div class="avatar-box">
+                    <img src="/src/img/jota.png" alt="">
+                </div>
+                <h3>João Victor Leão Silva</h3>
+                <p class="membro-cargo">Desenvolvedor full-stack</p>
+                <button class="btn-more-info">Mais informações</button>
+            </div>
+
+            <div class="membro-card" data-member="elen">
+                <div class="avatar-box">
+                   <img src="/src/img/Ariel.png" alt="">
+                </div>
+                <h3>Ariel França</h3>
+                <p class="membro-cargo">Product Owner & Desenvolvedor full-stack</p>
+                <button class="btn-more-info">Mais informações</button>
+            </div>
+
+            <div class="membro-card" data-member="gabriel">
+                <div class="avatar-box">
+                    <img src="/src/img/Derick.png" alt="">
+                </div>
+                <h3>Derick Souza</h3>
+                <p class="membro-cargo">Desenvolvedor full-stack</p>
+                <button class="btn-more-info">Mais informações</button>
+            </div>
+
+            <div class="membro-card" data-member="italo">
+                <div class="avatar-box">
+                    <img src="/src/img/Adryano.jpg" alt="">
+                </div>
+                <h3>Adryano Silva</h3>
+                <p class="membro-cargo">Desenvolvedor full-stack</p>
+                <button class="btn-more-info">Mais informações</button>
+            </div>
+
+            <div class="membro-card" data-member="roberta">
+                <div class="avatar-box">
+                    <img src="/src/img/Matheus.png" alt="">
+                </div>
+                <h3>Matheus Costa</h3>
+                <p class="membro-cargo">Desenvolvedor full-stack</p>
+                <button class="btn-more-info">Mais informações</button>
+            </div>
+
+            <div class="membro-card" data-member="ronald">
+                <div class="avatar-box">
+                    <img src="/src/img/Professora.png" alt="">
+                </div>
+                <h3>Ana Luisa</h3>
+                <p class="membro-cargo">Professora e desenvolvedora | Auxiliar do projeto</p>
+                <button class="btn-more-info">Mais informações</button>
+            </div>
+
+        </section>
+
+        <section id="detalhes-membro-container" class="detalhes-membro-container" style="display: none;">
+            <div class="detalhes-header">
+                <span class="badge-status">Perfil Ativo</span>
+                <h2 id="detalhe-nome">Nome do Integrante</h2>
+                <p id="detalhe-cargo" class="detalhe-cargo-sub">Cargo correspondente</p>
+            </div>
+            
+            <div class="detalhes-body">
+                <div class="detalhes-section">
+                    <h4>Sobre mim </h4>
+                    <p id="detalhe-bio">Biografia detalhada do integrante...</p>
+                </div>
+
+                <div class="detalhes-section">
+                    <h4>Principais Tecnologias e Hard Skills:</h4>
+                    <div id="detalhe-tags" class="skills-tags">
+                        </div>
+                </div>
+
+                <div class="detalhes-section links-section">
+                    <h4>Redes Profissionais:</h4>
+                    <div class="social-buttons">
+                        <a id="link-linkedin" href="#" target="_blank" class="btn-social btn-linkedin">🔗 LinkedIn</a>
+                        <a id="link-github" href="#" target="_blank" class="btn-social btn-github">💻 GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <div>
+                    <h4>HAWB | Health and Well-being</h4>
+                    <p>O melhor mapeamento de saúde</p>
+                </div>
+            </div>
+            <div class="footer-info">
+                <span><i class="fa-solid fa-location-dot"></i> Camaçari/BA</span>
+                <span><i class="fa-solid fa-envelope"></i> hawb.med@gmail.com</span>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 - HAWB | Health and Well-being</p>
+            <p class="footer-slogan">Mais que produção, uma relação com você!</p>
+        </div>
+    </footer>
+
+    <script src="/src/js/equipe.js"></script>
+</body>
+</html>
