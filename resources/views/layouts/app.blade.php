@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'HAWB - O melhor mapeamento de saúde')</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
+    @yield('styles')
+    @stack('head')
+</head>
+<body>
+
+<div class="disclaimer">
+    <strong>Aviso:</strong> As publicações médicas têm caráter informativo e não substituem uma consulta profissional.
+    Em caso de emergência, procure atendimento imediato ou ligue 192.
+</div>
+
+<header class="navbar">
+    <div class="logo-container">
+        <i class="fa-solid fa-heart-pulse logo-icon"></i>
+        <div>
+            <h1 class="logo-title">HAWB</h1>
+            <p class="logo-subtitle">O melhor mapeamento de saúde</p>
+        </div>
+    </div>
+
+    <nav class="nav-links">
+        <a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'active' : '' }}">Início</a>
+        <a href="{{ route('sintomas') }}" class="{{ request()->routeIs('sintomas') ? 'active' : '' }}">Sintomas</a>
+        <a href="{{ route('locais') }}" class="{{ request()->routeIs('locais') ? 'active' : '' }}">Locais</a>
+        <a href="{{ route('tipos') }}" class="{{ request()->routeIs('tipos') ? 'active' : '' }}">Tipos</a>
+        <a href="{{ route('equipe') }}" class="{{ request()->routeIs('equipe') ? 'active' : '' }}">Equipe</a>
+        <a href="{{ route('chat.index') }}" class="{{ request()->routeIs('chat.*') ? 'active' : '' }}">Chat com Médicos</a>
+        <a href="{{ route('contact.show') }}" class="{{ request()->routeIs('contact.*') ? 'active' : '' }}">Contato</a>
+
+        <div class="auth-nav">
+            @auth
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}">Admin</a>
+                @endif
+                @if(auth()->user()->isDoctor() || auth()->user()->isPendingDoctor())
+                    <a href="{{ route('doctor.chat.create') }}">Publicar</a>
+                @endif
+                <a href="{{ route('chat.conversations') }}">Minhas conversas</a>
+                <span title="{{ auth()->user()->email }}">{{ auth()->user()->name }}</span>
+                <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit">Sair</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}">Entrar</a>
+                <a href="{{ route('register') }}" class="btn-nav">Cadastrar</a>
+            @endauth
+        </div>
+    </nav>
+</header>
+
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+@if(session('error'))
+    <div class="alert alert-error">{{ session('error') }}</div>
+@endif
+@if($errors->any())
+    <div class="alert alert-error">
+        <ul style="margin:0;padding-left:20px;">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@yield('content')
+
+<footer class="footer">
+    <div class="footer-top">
+        <div class="footer-logo">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <div>
+                <h4>HAWB | Health and Well-being</h4>
+                <p>O melhor mapeamento de saúde</p>
+            </div>
+        </div>
+        <div class="footer-info">
+            <span><i class="fa-solid fa-location-dot"></i> Camaçari/BA</span>
+            <span><i class="fa-solid fa-envelope"></i> hawb.med@gmail.com</span>
+        </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+        <p>&copy; 2026 - HAWB | Health and Well-being</p>
+        <p class="footer-slogan">Mais que produção, uma relação com você!</p>
+    </div>
+</footer>
+
+@yield('scripts')
+@stack('scripts')
+</body>
+</html>

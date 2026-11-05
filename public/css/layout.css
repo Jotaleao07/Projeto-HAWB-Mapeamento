@@ -1,0 +1,201 @@
+/* Layout compartilhado: navbar, footer, alertas e formulários.
+   As páginas originais mantêm seus próprios CSS; este arquivo atende
+   as páginas novas (contato, chat, auth, admin) e os blocos comuns. */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Open Sans', 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+a { color: inherit; }
+
+/* ---------------- Navbar ---------------- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e6f7ed;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo-icon { font-size: 2rem; color: #009639; }
+.logo-title { font-size: 1.5rem; color: #009639; font-weight: 700; letter-spacing: 1px; }
+.logo-subtitle { font-size: 0.72rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.nav-links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.nav-links a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding-bottom: 4px;
+    border-bottom: 3px solid transparent;
+    transition: color .2s, border-color .2s;
+}
+.nav-links a:hover { color: #009639; }
+.nav-links a.active { color: #009639; border-bottom-color: #009639; }
+
+.auth-nav { display: flex; gap: 12px; align-items: center; margin-left: 8px; }
+.auth-nav a, .auth-nav button {
+    color: #009639; text-decoration: none; font-weight: 600;
+    background: none; border: none; cursor: pointer; font-size: 0.92rem;
+    font-family: inherit;
+}
+.auth-nav a:hover, .auth-nav button:hover { text-decoration: underline; }
+.btn-nav {
+    padding: 7px 16px; border-radius: 6px;
+    background: #009639; color: #fff !important;
+}
+.btn-nav:hover { background: #007a2e; text-decoration: none !important; }
+
+/* ---------------- Alertas ---------------- */
+.alert { padding: 12px 18px; border-radius: 8px; margin: 18px auto; max-width: 1100px; font-size: .95rem; }
+.alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.alert-warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+
+.disclaimer {
+    background: #fff3cd; color: #856404;
+    padding: 10px 16px; font-size: 0.85rem; text-align: center;
+    border-bottom: 1px solid #ffeeba;
+}
+
+/* ---------------- Containers ---------------- */
+.page-container { max-width: 1100px; margin: 0 auto; padding: 40px 24px 60px; }
+.page-title { font-size: 2rem; color: #111827; margin-bottom: 6px; }
+.page-subtitle { color: #6b7280; margin-bottom: 30px; }
+
+.section-header { text-align: center; margin-bottom: 34px; }
+.section-header h1 { font-size: 2rem; color: #111827; }
+.section-header .subtitle { color: #6b7280; margin-top: 8px; }
+
+/* ---------------- Formulários ---------------- */
+.form-card {
+    background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
+    padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,.05);
+}
+.form-group { margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-weight: 600; font-size: .92rem; color: #374151; }
+.form-group input, .form-group select, .form-group textarea {
+    padding: 11px 13px; border: 1px solid #d1d5db; border-radius: 8px;
+    font-family: inherit; font-size: .95rem; background: #fff; color: #111827;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: #009639; box-shadow: 0 0 0 3px rgba(0,150,57,.12);
+}
+.form-group textarea { min-height: 150px; resize: vertical; }
+.form-error { color: #dc2626; font-size: .83rem; }
+.form-hint { color: #6b7280; font-size: .83rem; }
+
+.btn-primary {
+    background: #009639; color: #fff; border: none; cursor: pointer;
+    padding: 12px 26px; border-radius: 8px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; transition: background .2s;
+}
+.btn-primary:hover { background: #007a2e; }
+.btn-primary:disabled { background: #9ca3af; cursor: not-allowed; }
+.btn-secondary {
+    background: #fff; color: #009639; border: 2px solid #009639; cursor: pointer;
+    padding: 10px 24px; border-radius: 8px; font-size: .95rem; font-weight: 600;
+    font-family: inherit; text-decoration: none; display: inline-block;
+}
+.btn-secondary:hover { background: #f0fdf4; }
+.btn-danger {
+    background: #dc2626; color: #fff; border: none; cursor: pointer;
+    padding: 8px 16px; border-radius: 6px; font-size: .87rem; font-family: inherit;
+}
+.btn-danger:hover { background: #b91c1c; }
+
+.auth-wrapper { max-width: 460px; margin: 40px auto 70px; padding: 0 20px; }
+.auth-wrapper .form-card h2 { margin-bottom: 4px; color: #111827; }
+.auth-wrapper .auth-alt { text-align: center; margin-top: 18px; font-size: .92rem; color: #6b7280; }
+.auth-wrapper .auth-alt a { color: #009639; font-weight: 600; text-decoration: none; }
+.auth-wrapper .auth-alt a:hover { text-decoration: underline; }
+
+/* ---------------- Footer ---------------- */
+.footer { background-color: #00642f; color: #eafff3; margin-top: 50px; padding: 34px 40px 20px; }
+.footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
+.footer-logo { display: flex; align-items: center; gap: 14px; }
+.footer-logo i { font-size: 1.8rem; color: #7ee2a8; }
+.footer-logo h4 { font-size: 1rem; }
+.footer-logo p { font-size: .82rem; opacity: .8; }
+.footer-info { display: flex; gap: 22px; flex-wrap: wrap; font-size: .88rem; }
+.footer-info span { display: inline-flex; align-items: center; gap: 7px; }
+.footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.18); margin: 22px 0 16px; }
+.footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: .8rem; opacity: .85; }
+.footer-slogan { font-style: italic; }
+
+/* ---------------- Paginação ---------------- */
+.pagination { display: flex; gap: 6px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+.pagination a, .pagination span {
+    padding: 8px 14px; border: 1px solid #d1d5db; border-radius: 6px;
+    text-decoration: none; color: #374151; font-size: .9rem;
+}
+.pagination a:hover { border-color: #009639; color: #009639; }
+.pagination .active span { background: #009639; border-color: #009639; color: #fff; }
+
+/* ---------------- Chat ---------------- */
+.chat-layout { display: grid; grid-template-columns: 320px 1fr; gap: 24px; align-items: start; }
+.chat-list { display: flex; flex-direction: column; gap: 10px; }
+.chat-item {
+    display: block; padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 10px;
+    text-decoration: none; color: inherit; transition: border-color .2s, background .2s;
+}
+.chat-item:hover { border-color: #009639; background: #f0fdf4; }
+.chat-item .name { font-weight: 700; color: #111827; }
+.chat-item .meta { font-size: .8rem; color: #6b7280; }
+.chat-item .preview { font-size: .87rem; color: #4b5563; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.chat-window { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-height: 480px; }
+.chat-head { background: #009639; color: #fff; padding: 16px 20px; }
+.chat-head .name { font-weight: 700; }
+.chat-head .meta { font-size: .82rem; opacity: .9; }
+.chat-body { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #f9fafb; max-height: 480px; overflow-y: auto; }
+.bubble { max-width: 72%; padding: 10px 14px; border-radius: 14px; font-size: .93rem; align-self: flex-start; background: #fff; border: 1px solid #e5e7eb; }
+.bubble.mine { align-self: flex-end; background: #dcf5e5; border-color: #b7e6c9; }
+.bubble .who { font-size: .74rem; font-weight: 700; color: #009639; margin-bottom: 3px; }
+.bubble .when { font-size: .7rem; color: #9ca3af; margin-top: 4px; text-align: right; }
+.chat-form { display: flex; gap: 10px; padding: 14px; border-top: 1px solid #e5e7eb; background: #fff; }
+.chat-form input { flex: 1; padding: 11px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-family: inherit; font-size: .95rem; }
+.chat-form input:focus { outline: none; border-color: #009639; }
+
+.empty-state { text-align: center; padding: 50px 20px; color: #6b7280; }
+.empty-state i { font-size: 2.4rem; color: #009639; margin-bottom: 12px; display: block; }
+
+/* ---------------- Cards genéricos ---------------- */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.info-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 22px; box-shadow: 0 3px 12px rgba(0,0,0,.04); }
+.info-card h3 { color: #111827; margin-bottom: 6px; font-size: 1.1rem; }
+.info-card .tag { display: inline-block; background: #e6f7ed; color: #009639; font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: .4px; }
+.info-card p { color: #4b5563; font-size: .92rem; margin-top: 8px; }
+.info-card .meta { color: #6b7280; font-size: .83rem; margin-top: 4px; }
+.card-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+/* ---------------- Stats / admin ---------------- */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 34px; }
+.stat-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 20px; text-align: center; }
+.stat-card .num { font-size: 2rem; font-weight: 700; color: #009639; }
+.stat-card .lbl { color: #4b5563; font-size: .87rem; }
+
+.table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; }
+.table th, .table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #f3f4f6; font-size: .9rem; }
+.table th { background: #f9fafb; color: #374151; font-size: .8rem; text-transform: uppercase; letter-spacing: .4px; }
+.table tr:last-child td { border-bottom: none; }
+
+/* ---------------- Responsivo ---------------- */
+@media (max-width: 900px) {
+    .navbar { flex-direction: column; gap: 15px; padding: 16px 20px; }
+    .nav-links { justify-content: center; gap: 14px; }
+    .chat-layout { grid-template-columns: 1fr; }
+    .footer-top, .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+    .page-container { padding: 28px 18px 50px; }
+}
