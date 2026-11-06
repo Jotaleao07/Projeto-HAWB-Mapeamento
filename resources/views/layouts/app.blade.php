@@ -30,14 +30,22 @@
         </div>
     </div>
 
-    <nav class="nav-links">
-        <a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'active' : '' }}">Início</a>
-        <a href="{{ route('sintomas') }}" class="{{ request()->routeIs('sintomas') ? 'active' : '' }}">Sintomas</a>
-        <a href="{{ route('locais') }}" class="{{ request()->routeIs('locais') ? 'active' : '' }}">Locais</a>
-        <a href="{{ route('tipos') }}" class="{{ request()->routeIs('tipos') ? 'active' : '' }}">Tipos</a>
-        <a href="{{ route('equipe') }}" class="{{ request()->routeIs('equipe') ? 'active' : '' }}">Equipe</a>
-        <a href="{{ route('chat.index') }}" class="{{ request()->routeIs('chat.*') ? 'active' : '' }}">Chat com Médicos</a>
-        <a href="{{ route('contact.show') }}" class="{{ request()->routeIs('contact.*') ? 'active' : '' }}">Contato</a>
+    @auth
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    @endauth
+
+    <nav class="nav-links {{ auth()->check() ? '' : 'is-public' }}" id="navLinks">
+        @auth
+            <a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'active' : '' }}">Início</a>
+            <a href="{{ route('sintomas') }}" class="{{ request()->routeIs('sintomas') ? 'active' : '' }}">Sintomas</a>
+            <a href="{{ route('locais') }}" class="{{ request()->routeIs('locais') ? 'active' : '' }}">Locais</a>
+            <a href="{{ route('tipos') }}" class="{{ request()->routeIs('tipos') ? 'active' : '' }}">Tipos</a>
+            <a href="{{ route('equipe') }}" class="{{ request()->routeIs('equipe') ? 'active' : '' }}">Equipe</a>
+            <a href="{{ route('chat.index') }}" class="{{ request()->routeIs('chat.*') ? 'active' : '' }}">Chat com Médicos</a>
+            <a href="{{ route('contact.show') }}" class="{{ request()->routeIs('contact.*') ? 'active' : '' }}">Contato</a>
+        @endauth
 
         <div class="auth-nav">
             @auth
@@ -48,14 +56,14 @@
                     <a href="{{ route('doctor.chat.create') }}">Publicar</a>
                 @endif
                 <a href="{{ route('chat.conversations') }}">Minhas conversas</a>
-                <span title="{{ auth()->user()->email }}">{{ auth()->user()->name }}</span>
-                <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                <span class="user-chip" title="{{ auth()->user()->email }}"><i class="fa-solid fa-user"></i> {{ auth()->user()->name }}</span>
+                <form action="{{ route('logout') }}" method="POST" class="logout-form">
                     @csrf
                     <button type="submit">Sair</button>
                 </form>
             @else
-                <a href="{{ route('login') }}">Entrar</a>
-                <a href="{{ route('register') }}" class="btn-nav">Cadastrar</a>
+                <a href="{{ route('login') }}" class="{{ request()->routeIs('login') ? 'active' : '' }}">Entrar</a>
+                <a href="{{ route('register') }}" class="btn-nav {{ request()->routeIs('register') ? 'active' : '' }}">Cadastrar</a>
             @endauth
         </div>
     </nav>
@@ -102,5 +110,39 @@
 
 @yield('scripts')
 @stack('scripts')
+
+<script>
+// Menu responsivo (hambúrguer)
+(function () {
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if (!toggle || !links) return;
+
+    toggle.addEventListener('click', function (e) {
+        e.stopPropagation(); // impede que o clique no botão seja tratado como "clique fora"
+        var open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.innerHTML = open
+            ? '<i class="fa-solid fa-xmark"></i>'
+            : '<i class="fa-solid fa-bars"></i>';
+    });
+
+    // Fecha o menu ao clicar em um link ou fora dele
+    links.addEventListener('click', function (e) {
+        if (e.target.closest('a')) {
+            links.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        }
+    });
+    document.addEventListener('click', function (e) {
+        if (!links.contains(e.target) && !toggle.contains(e.target)) {
+            links.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        }
+    });
+})();
+</script>
 </body>
 </html>

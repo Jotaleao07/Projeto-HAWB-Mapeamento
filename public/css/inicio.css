@@ -1,62 +1,3 @@
-/* RESET E CONFIGURAÇÕES GERAIS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
-
-body {
-    background-color: #ffffff;
-    color: #333333;
-}
-
-/* NAVBAR */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 8%;
-    background-color: #ffffff;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-icon {
-    font-size: 28px;
-    color: #189213;
-}
-
-.logo-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #111;
-}
-
-.logo-subtitle {
-    font-size: 11px;
-    color: #666;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #555;
-    margin-left: 25px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.nav-links a:hover {
-    border-bottom: 2px solid #009639;
-    padding-bottom: 4px;
-}
-
 /* HERO SECTION */
 .hero-section {
     display: flex;
@@ -338,80 +279,29 @@ body {
     line-height: 1.5;
 }
 
-/* FOOTER */
-.footer {
-    background-color: #00642f; /* Verde escuro idêntico ao print */
-    color: #ffffff;
-    padding: 40px 60px 20px 60px;
-    font-size: 14px;
+/* RESPONSIVIDADE */
+@media (max-width: 900px) {
+    .hero-section { padding: 45px 6%; gap: 28px; }
+    .about-section { padding: 55px 6%; gap: 34px; }
+    .quote-container { padding: 55px 6%; gap: 30px; }
+    .mission-section { padding: 50px 8%; }
+    .services-section { padding: 50px 6% 70px 6%; }
 }
 
-.footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.footer-logo i {
-    font-size: 24px;
-}
-
-.footer-logo h4 {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.footer-logo p {
-    font-size: 12px;
-    opacity: 0.8;
-}
-
-.footer-info {
-    display: flex;
-    gap: 25px;
-}
-
-.footer-info span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-}
-
-.footer-divider {
-    border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    margin: 25px 0;
-}
-
-.footer-bottom {
-    text-align: center;
-    font-size: 12px;
-    opacity: 0.9;
-}
-
-.footer-slogan {
-    margin-top: 5px;
-    font-style: italic;
-}
-
-/* RESPONSIVIDADE BÁSICA */
-@media(max-width: 768px) {
-    .navbar, .hero-section, .about-section, .quote-container, .footer-top, .footer-bottom {
+@media (max-width: 768px) {
+    .hero-section, .about-section, .quote-container {
         flex-direction: column;
         text-align: center;
     }
-    .nav-links { margin-top: 20px; }
-    .nav-links a { margin: 0 10px; }
+    .hero-text h1 { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+    .hero-text p { font-size: 1rem; }
     .about-text h2, .title-with-icon { justify-content: center; }
-    .footer-contacts { margin-top: 15px; }
-    .footer-contacts span { margin: 0 10px; }
+    .about-section { flex-direction: column-reverse; }
+    .quote-right-card { height: 280px; width: 100%; }
+    .card-footer-text { width: 90%; }
+    .mission-section h2, .services-section h2 { font-size: 1.6rem; }
+    .mission-section p { font-size: 1rem; }
+    .italic-quote { font-size: 1.1rem; }
+    .service-card { width: 100%; max-width: 360px; padding: 30px 24px; }
+    .stamp-logo { left: 10px; top: 10px; }
 }

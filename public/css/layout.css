@@ -1,24 +1,30 @@
 /* Layout compartilhado: navbar, footer, alertas e formulários.
-   As páginas originais mantêm seus próprios CSS; este arquivo atende
-   as páginas novas (contato, chat, auth, admin) e os blocos comuns. */
+   Fonte única do cabeçalho e rodapé — as páginas não devem
+   redefinir estes elementos (carregam apenas seus estilos internos). */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
     font-family: 'Open Sans', 'Inter', sans-serif;
     background-color: #ffffff;
     color: #1f2937;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
 }
 
 a { color: inherit; }
+img { max-width: 100%; height: auto; }
 
 /* ---------------- Navbar ---------------- */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 40px;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 14px 40px;
     background-color: #ffffff;
     border-bottom: 1px solid #e6f7ed;
     position: sticky;
@@ -26,13 +32,13 @@ a { color: inherit; }
     z-index: 50;
 }
 
-.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo-container { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .logo-icon { font-size: 2rem; color: #009639; }
-.logo-title { font-size: 1.5rem; color: #009639; font-weight: 700; letter-spacing: 1px; }
+.logo-title { font-size: 1.5rem; color: #009639; font-weight: 700; letter-spacing: 1px; line-height: 1.2; }
 .logo-subtitle { font-size: 0.72rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
 
 .nav-links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-.nav-links a {
+.nav-links > a {
     text-decoration: none;
     color: #374151;
     font-weight: 600;
@@ -40,17 +46,39 @@ a { color: inherit; }
     padding-bottom: 4px;
     border-bottom: 3px solid transparent;
     transition: color .2s, border-color .2s;
+    white-space: nowrap;
 }
-.nav-links a:hover { color: #009639; }
-.nav-links a.active { color: #009639; border-bottom-color: #009639; }
+.nav-links > a:hover { color: #009639; }
+.nav-links > a.active { color: #009639; border-bottom-color: #009639; }
 
-.auth-nav { display: flex; gap: 12px; align-items: center; margin-left: 8px; }
+/* Botão hambúrguer (exibido só no mobile, para usuários logados) */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 9px 13px;
+    font-size: 1.1rem;
+    color: #009639;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.auth-nav { display: flex; gap: 12px; align-items: center; margin-left: 8px; flex-wrap: wrap; }
 .auth-nav a, .auth-nav button {
     color: #009639; text-decoration: none; font-weight: 600;
     background: none; border: none; cursor: pointer; font-size: 0.92rem;
-    font-family: inherit;
+    font-family: inherit; white-space: nowrap;
 }
 .auth-nav a:hover, .auth-nav button:hover { text-decoration: underline; }
+.auth-nav .active { text-decoration: underline; }
+.user-chip {
+    color: #374151; font-size: .88rem; font-weight: 600;
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    padding: 5px 12px; border-radius: 999px; max-width: 190px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.logout-form { display: inline; }
 .btn-nav {
     padding: 7px 16px; border-radius: 6px;
     background: #009639; color: #fff !important;
@@ -88,6 +116,7 @@ a { color: inherit; }
 .form-group input, .form-group select, .form-group textarea {
     padding: 11px 13px; border: 1px solid #d1d5db; border-radius: 8px;
     font-family: inherit; font-size: .95rem; background: #fff; color: #111827;
+    width: 100%;
 }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
     outline: none; border-color: #009639; box-shadow: 0 0 0 3px rgba(0,150,57,.12);
@@ -160,12 +189,12 @@ a { color: inherit; }
 .chat-head .name { font-weight: 700; }
 .chat-head .meta { font-size: .82rem; opacity: .9; }
 .chat-body { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #f9fafb; max-height: 480px; overflow-y: auto; }
-.bubble { max-width: 72%; padding: 10px 14px; border-radius: 14px; font-size: .93rem; align-self: flex-start; background: #fff; border: 1px solid #e5e7eb; }
+.bubble { max-width: 72%; padding: 10px 14px; border-radius: 14px; font-size: .93rem; align-self: flex-start; background: #fff; border: 1px solid #e5e7eb; overflow-wrap: anywhere; }
 .bubble.mine { align-self: flex-end; background: #dcf5e5; border-color: #b7e6c9; }
 .bubble .who { font-size: .74rem; font-weight: 700; color: #009639; margin-bottom: 3px; }
 .bubble .when { font-size: .7rem; color: #9ca3af; margin-top: 4px; text-align: right; }
 .chat-form { display: flex; gap: 10px; padding: 14px; border-top: 1px solid #e5e7eb; background: #fff; }
-.chat-form input { flex: 1; padding: 11px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-family: inherit; font-size: .95rem; }
+.chat-form input { flex: 1; min-width: 0; padding: 11px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-family: inherit; font-size: .95rem; }
 .chat-form input:focus { outline: none; border-color: #009639; }
 
 .empty-state { text-align: center; padding: 50px 20px; color: #6b7280; }
@@ -192,10 +221,94 @@ a { color: inherit; }
 .table tr:last-child td { border-bottom: none; }
 
 /* ---------------- Responsivo ---------------- */
+
+/* Tablet: menu vira coluna vertical com hambúrguer */
+@media (max-width: 1024px) {
+    .navbar { padding: 14px 24px; }
+    .nav-links { gap: 16px; }
+    .nav-links > a { font-size: .9rem; }
+}
+
 @media (max-width: 900px) {
-    .navbar { flex-direction: column; gap: 15px; padding: 16px 20px; }
-    .nav-links { justify-content: center; gap: 14px; }
+    .navbar { padding: 12px 18px; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+
+    /* Links escondidos por padrão; abrem ao tocar no hambúrguer */
+    .nav-links {
+        display: none;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin-top: 8px;
+        padding-top: 6px;
+        border-top: 1px solid #e5e7eb;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links > a {
+        padding: 13px 6px;
+        border-bottom: 1px solid #f3f4f6;
+        border-left: 3px solid transparent;
+        font-size: .97rem;
+    }
+    .nav-links > a.active { border-bottom-color: #f3f4f6; border-left-color: #009639; }
+
+    /* Visitantes (sem login): só Entrar/Cadastrar, sempre visíveis */
+    .nav-links.is-public {
+        display: flex;
+        flex-direction: row;
+        flex-basis: auto;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        gap: 10px;
+    }
+    .nav-links.is-public > a { padding: 0; border: none; }
+
+    .auth-nav {
+        flex-direction: column;
+        align-items: stretch;
+        margin-left: 0;
+        gap: 10px;
+        padding: 10px 0 4px;
+    }
+    .nav-links.is-public .auth-nav {
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        margin-left: 0;
+    }
+    .auth-nav a, .auth-nav button { text-align: left; padding: 4px 0; }
+    .nav-links.is-public .auth-nav a,
+    .nav-links.is-public .auth-nav button { padding: 7px 14px; }
+    .auth-nav .btn-nav { text-align: center; }
+    .user-chip { max-width: 100%; justify-content: center; text-align: center; }
+    .logout-form button { width: 100%; text-align: left; }
+
     .chat-layout { grid-template-columns: 1fr; }
+    .footer { padding: 30px 22px 18px; }
     .footer-top, .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+    .footer-logo { flex-direction: column; gap: 8px; text-align: center; }
+    .footer-info { justify-content: center; }
     .page-container { padding: 28px 18px 50px; }
+    .page-title, .section-header h1 { font-size: 1.6rem; }
+    .form-card { padding: 24px 18px; }
+    .alert { margin: 14px 16px; }
+    .table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* Celular */
+@media (max-width: 640px) {
+    .disclaimer { font-size: .78rem; padding: 9px 12px; }
+    .logo-icon { font-size: 1.6rem; }
+    .logo-title { font-size: 1.25rem; }
+    .logo-subtitle { font-size: .66rem; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .chat-body { padding: 14px; max-height: 60vh; }
+    .bubble { max-width: 88%; }
+    .chat-form { flex-direction: column; }
+    .chat-form button { width: 100%; }
+    .auth-wrapper { margin-top: 26px; }
+    .footer-info { flex-direction: column; gap: 10px; align-items: center; }
 }
