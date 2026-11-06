@@ -162,7 +162,9 @@ img { max-width: 100%; height: auto; }
     justify-content: center;
 }
 .auth-wrapper .form-group { margin-bottom: 26px; }
-.auth-wrapper .form-card h2 { margin-bottom: 4px; color: #111827; }
+/* Título e descrição centralizados para um visual mais organizado */
+.auth-wrapper .form-card > h2 { margin-bottom: 4px; color: #111827; text-align: center; }
+.auth-wrapper .form-card > .form-hint { text-align: center; }
 .auth-wrapper .auth-alt { text-align: center; margin-top: 18px; font-size: .92rem; color: #6b7280; }
 .auth-wrapper .auth-alt a { color: #009639; font-weight: 600; text-decoration: none; }
 .auth-wrapper .auth-alt a:hover { text-decoration: underline; }
