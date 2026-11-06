@@ -1,4 +1,5 @@
 *.log
+/smtp-test.php
 .DS_Store
 .env
 .env.backup
