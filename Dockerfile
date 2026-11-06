@@ -16,11 +16,12 @@ WORKDIR /var/www/html
 # Código da aplicação
 COPY . .
 
-# Dependências de produção + Apache servindo a pasta /public do Laravel
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress \
-    && sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
-    && sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf \
-    && a2enmod rewrite
+# Dependências de produção
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+
+# Apache: DocumentRoot explícito em /public do Laravel (substitui o vhost padrão)
+COPY docker-vhost.conf /etc/apache2/sites-available/000-default.conf
+RUN a2enmod rewrite
 
 COPY docker-entrypoint.sh /usr/local/bin/hawb-entrypoint
 RUN chmod +x /usr/local/bin/hawb-entrypoint
