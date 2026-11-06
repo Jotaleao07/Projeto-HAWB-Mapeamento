@@ -81,13 +81,34 @@ img { max-width: 100%; height: auto; }
 }
 .auth-nav a:hover, .auth-nav button:hover { text-decoration: underline; }
 .auth-nav .active { text-decoration: underline; }
-.user-chip {
+/* Chip do usuário: abre o menu (Minhas conversas / Sair) */
+.auth-nav .user-chip {
     color: #374151; font-size: .88rem; font-weight: 600;
     background: #f0fdf4; border: 1px solid #bbf7d0;
-    padding: 5px 12px; border-radius: 999px; max-width: 190px;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    padding: 5px 12px; border-radius: 999px; max-width: 240px;
 }
-.logout-form { display: inline; }
+.user-chip-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.user-menu { position: relative; }
+.auth-nav .user-menu-toggle { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
+.user-chip-caret { font-size: .68rem; color: #6b7280; transition: transform .2s; }
+.user-menu.open .user-chip-caret { transform: rotate(180deg); }
+.user-menu-dropdown {
+    position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px;
+    background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.14); padding: 6px; z-index: 60;
+    display: none;
+}
+.user-menu.open .user-menu-dropdown { display: block; }
+.user-menu-dropdown a,
+.user-menu-dropdown button {
+    display: flex; align-items: center; gap: 9px; width: 100%;
+    padding: 9px 12px; border-radius: 7px; font-size: .9rem; font-weight: 600;
+    color: #374151; text-align: left; white-space: nowrap;
+}
+.user-menu-dropdown a:hover,
+.user-menu-dropdown button:hover { background: #f0fdf4; color: #009639; text-decoration: none; }
+.user-menu-dropdown form { margin: 0; }
 .btn-nav {
     padding: 7px 16px; border-radius: 6px;
     background: #009639; color: #fff !important;
@@ -301,8 +322,9 @@ img { max-width: 100%; height: auto; }
     .nav-links.is-public .auth-nav a,
     .nav-links.is-public .auth-nav button { padding: 7px 14px; }
     .auth-nav .btn-nav { text-align: center; }
-    .user-chip { max-width: 100%; justify-content: center; text-align: center; }
-    .logout-form button { width: 100%; text-align: left; }
+    .auth-nav .user-chip { max-width: 100%; justify-content: center; text-align: center; }
+    .user-menu-toggle { width: 100%; justify-content: center; }
+    .user-menu-dropdown { left: 0; right: 0; }
 
     .chat-layout { grid-template-columns: 1fr; }
     .footer { padding: 30px 22px 18px; }

@@ -56,12 +56,25 @@
                 @if(auth()->user()->isDoctor() || auth()->user()->isPendingDoctor())
                     <a href="{{ route('doctor.chat.create') }}">Publicar</a>
                 @endif
-                <a href="{{ route('chat.conversations') }}">Minhas conversas</a>
-                <span class="user-chip" title="{{ auth()->user()->email }}"><i class="fa-solid fa-user"></i> {{ auth()->user()->name }}</span>
-                <form action="{{ route('logout') }}" method="POST" class="logout-form">
-                    @csrf
-                    <button type="submit">Sair</button>
-                </form>
+                <div class="user-menu" id="userMenu">
+                    <button type="button" class="user-chip user-menu-toggle" id="userMenuToggle"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="userMenuDropdown"
+                            title="{{ auth()->user()->email }}">
+                        <i class="fa-solid fa-user"></i> <span class="user-chip-name">{{ auth()->user()->name }}</span>
+                        <i class="fa-solid fa-chevron-down user-chip-caret" aria-hidden="true"></i>
+                    </button>
+                    <div class="user-menu-dropdown" id="userMenuDropdown" role="menu">
+                        <a href="{{ route('chat.conversations') }}" role="menuitem">
+                            <i class="fa-solid fa-comments" aria-hidden="true"></i> Minhas conversas
+                        </a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" role="menuitem">
+                                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Sair
+                            </button>
+                        </form>
+                    </div>
+                </div>
             @else
                 <a href="{{ route('login') }}" class="{{ request()->routeIs('login') ? 'active' : '' }}">Entrar</a>
                 <a href="{{ route('register') }}" class="btn-nav {{ request()->routeIs('register') ? 'active' : '' }}">Cadastrar</a>
@@ -115,6 +128,33 @@
 @stack('scripts')
 
 <script>
+// Menu do usuário: clicar no nome abre Minhas conversas / Sair
+(function () {
+    var menu = document.getElementById('userMenu');
+    var toggle = document.getElementById('userMenuToggle');
+    if (!menu || !toggle) return;
+
+    toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // Fecha ao clicar fora ou ao pressionar Esc
+    document.addEventListener('click', function (e) {
+        if (!menu.contains(e.target)) {
+            menu.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            menu.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+})();
+
 // Menu responsivo (hambúrguer)
 (function () {
     var toggle = document.getElementById('navToggle');
