@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Confiar no proxy do Render (TLS encerrado no proxy: gera URLs https corretas)
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'doctor' => \App\Http\Middleware\EnsureUserIsApprovedDoctor::class,

@@ -1,0 +1,23 @@
+# Segredo e ambiente locais nunca entram na imagem
+.env
+.env.*
+
+# Artefatos locais de desenvolvimento
+vendor
+node_modules
+storage/logs/*
+bootstrap/cache/*.php
+database/*.sqlite
+database/*.sqlite-*
+public/build
+phpunit.xml
+phpunit.xml.dist
+smtp-test.php
+
+# Arquivos de ferramentas/dados irrelevantes
+.git
+.github
+.claude
+.idea
+.vscode
+.phpunit.result.cache
