@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<div class="disclaimer">
+<div class="disclaimer" id="disclaimer">
     <strong>Aviso:</strong> As publicações médicas têm caráter informativo e não substituem uma consulta profissional.
     Em caso de emergência, procure atendimento imediato ou ligue 192.
 </div>
@@ -128,6 +128,13 @@
 @stack('scripts')
 
 <script>
+// Aviso de emergência: some com fade 1 minuto após abrir a página
+(function () {
+    var aviso = document.getElementById('disclaimer');
+    if (!aviso) return;
+    setTimeout(function () { aviso.classList.add('hide'); }, 60000);
+})();
+
 // Menu do usuário: clicar no nome abre Minhas conversas / Sair
 (function () {
     var menu = document.getElementById('userMenu');
