@@ -80,7 +80,6 @@ img { max-width: 100%; height: auto; }
     font-family: inherit; white-space: nowrap;
 }
 .auth-nav a:hover, .auth-nav button:hover { text-decoration: underline; }
-.auth-nav .active { text-decoration: underline; }
 /* Chip do usuário: abre o menu (Minhas conversas / Sair) */
 .auth-nav .user-chip {
     color: #374151; font-size: .88rem; font-weight: 600;
