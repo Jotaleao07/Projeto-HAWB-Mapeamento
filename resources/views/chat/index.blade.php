@@ -59,6 +59,17 @@
                                         Conversar
                                     </a>
                                 @endif
+                                @if(auth()->user()->isAdmin())
+                                    <form action="{{ route('admin.publication.destroy', $publication) }}" method="POST"
+                                          style="display:inline;"
+                                          onsubmit="return confirm('Excluir esta publicação? Esta ação não pode ser desfeita.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-danger" style="padding:10px 20px;">
+                                            <i class="fa-solid fa-trash"></i> Excluir
+                                        </button>
+                                    </form>
+                                @endif
                             @endauth
                         </div>
                     </article>

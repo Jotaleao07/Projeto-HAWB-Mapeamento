@@ -59,5 +59,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/aprovar/{user}', [AdminController::class, 'approve'])->name('approve');
         Route::post('/recusar/{user}', [AdminController::class, 'reject'])->name('reject');
         Route::post('/contato/{contact}', [AdminController::class, 'toggleContact'])->name('contact.toggle');
+        Route::delete('/publicacao/{publication}', [AdminController::class, 'destroyPublication'])
+            ->name('publication.destroy');
     });
 });

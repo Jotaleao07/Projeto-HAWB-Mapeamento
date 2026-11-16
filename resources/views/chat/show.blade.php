@@ -48,6 +48,21 @@
                     <a href="{{ route('login') }}" class="btn-secondary">Entrar para conversar</a>
                 </div>
             @endauth
+
+            @auth
+                @if(auth()->user()->isAdmin())
+                    <div class="card-actions" style="margin-top: 24px; justify-content: flex-end;">
+                        <form action="{{ route('admin.publication.destroy', $publication) }}" method="POST"
+                              onsubmit="return confirm('Excluir esta publicação? Esta ação não pode ser desfeita.');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-danger">
+                                <i class="fa-solid fa-trash"></i> Excluir publicação
+                            </button>
+                        </form>
+                    </div>
+                @endif
+            @endauth
         </article>
     </div>
 @endsection

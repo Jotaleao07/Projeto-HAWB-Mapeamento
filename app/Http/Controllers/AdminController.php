@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class AdminController extends Controller
@@ -48,5 +50,15 @@ class AdminController extends Controller
         $contact->update(['notified' => ! $contact->notified]);
 
         return back()->with('success', 'Status do contato atualizado.');
+    }
+
+    /** Exclui qualquer publicação (a política libera apenas administradores). */
+    public function destroyPublication(Publication $publication): RedirectResponse
+    {
+        Gate::authorize('delete', $publication);
+
+        $publication->delete();
+
+        return redirect()->route('chat.index')->with('success', 'Publicação excluída com sucesso.');
     }
 }
