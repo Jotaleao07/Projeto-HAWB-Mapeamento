@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role', 'specialty', 'crm', 'status', 'bio'])]
+#[Fillable(['name', 'email', 'password', 'role', 'specialty', 'crm', 'status', 'bio', 'preferences'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -25,6 +25,14 @@ class User extends Authenticatable
     public const STATUS_APPROVED = 'approved';
     public const STATUS_REJECTED = 'rejected';
 
+    /** Padrões das configurações de acessibilidade (4 grupos). */
+    public const PREFERENCES_DEFAULT = [
+        'visual' => ['enabled' => false, 'contrast' => false, 'daltonism' => 'off', 'bigfont' => false],
+        'auditiva' => ['enabled' => false, 'visual_alerts' => false, 'vibrate' => false, 'text_alerts' => false],
+        'motora' => ['enabled' => false, 'keyboard' => false, 'bigclick' => false, 'safe_click' => false],
+        'cognitiva' => ['enabled' => false, 'no_animations' => false, 'underline_links' => false, 'reading_mode' => false],
+    ];
+
     /**
      * @return array<string, string>
      */
@@ -33,7 +41,72 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'preferences' => 'array',
         ];
+    }
+
+    /** Preferências de acessibilidade completas (padrão + o que o usuário salvou). */
+    public function a11yPreferences(): array
+    {
+        return array_replace_recursive(self::PREFERENCES_DEFAULT, $this->preferences ?? []);
+    }
+
+    /** Classes CSS aplicadas no <html> conforme as preferências salvas. */
+    public function a11yClass(): string
+    {
+        $p = $this->a11yPreferences();
+        $classes = [];
+
+        if ($p['visual']['enabled']) {
+            if ($p['visual']['contrast']) {
+                $classes[] = 'a11y-contrast';
+            }
+            if ($p['visual']['bigfont']) {
+                $classes[] = 'a11y-bigfont';
+            }
+            $daltonism = $p['visual']['daltonism'] ?? 'off';
+            if ($daltonism !== 'off') {
+                $classes[] = 'a11y-daltonism-'.preg_replace('/[^a-z]/', '', $daltonism);
+            }
+        }
+
+        if ($p['auditiva']['enabled']) {
+            if ($p['auditiva']['visual_alerts']) {
+                $classes[] = 'a11y-flash';
+            }
+            if ($p['auditiva']['vibrate']) {
+                $classes[] = 'a11y-vibrate';
+            }
+            if ($p['auditiva']['text_alerts']) {
+                $classes[] = 'a11y-toast';
+            }
+        }
+
+        if ($p['motora']['enabled']) {
+            if ($p['motora']['keyboard']) {
+                $classes[] = 'a11y-keyboard';
+            }
+            if ($p['motora']['bigclick']) {
+                $classes[] = 'a11y-bigclick';
+            }
+            if ($p['motora']['safe_click']) {
+                $classes[] = 'a11y-safe-click';
+            }
+        }
+
+        if ($p['cognitiva']['enabled']) {
+            if ($p['cognitiva']['no_animations']) {
+                $classes[] = 'a11y-noanim';
+            }
+            if ($p['cognitiva']['underline_links']) {
+                $classes[] = 'a11y-underline';
+            }
+            if ($p['cognitiva']['reading_mode']) {
+                $classes[] = 'a11y-reading';
+            }
+        }
+
+        return implode(' ', $classes);
     }
 
     public function isAdmin(): bool

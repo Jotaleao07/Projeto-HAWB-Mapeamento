@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" @if(auth()->check()) class="{{ auth()->user()->a11yClass() }}" @endif>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,12 +52,6 @@
 
         <div class="auth-nav">
             @auth
-                @if(auth()->user()->isAdmin())
-                    <a href="{{ route('admin.dashboard') }}">Admin</a>
-                @endif
-                @if(auth()->user()->isDoctor() || auth()->user()->isPendingDoctor())
-                    <a href="{{ route('doctor.chat.create') }}">Publicar</a>
-                @endif
                 <div class="user-menu" id="userMenu">
                     <button type="button" class="user-chip user-menu-toggle" id="userMenuToggle"
                             aria-haspopup="true" aria-expanded="false" aria-controls="userMenuDropdown"
@@ -66,6 +60,10 @@
                         <i class="fa-solid fa-chevron-down user-chip-caret" aria-hidden="true"></i>
                     </button>
                     <div class="user-menu-dropdown" id="userMenuDropdown" role="menu">
+                        <a href="{{ route('profile.show') }}" role="menuitem"
+                           class="{{ request()->routeIs('profile.*') ? 'is-active' : '' }}">
+                            <i class="fa-solid fa-id-card" aria-hidden="true"></i> Perfil
+                        </a>
                         <a href="{{ route('chat.conversations') }}" role="menuitem">
                             <i class="fa-solid fa-comments" aria-hidden="true"></i> Minhas conversas
                         </a>
@@ -137,7 +135,42 @@
     setTimeout(function () { aviso.classList.add('hide'); }, 15000);
 })();
 
-// Menu do usuário: clicar no nome abre Minhas conversas / Sair
+// ---------- Acessibilidade: efeitos globais ----------
+// Alertas visuais/toast/vibração — chamado pelo chat ao receber mensagem nova.
+window.hawbA11yAlert = function (text) {
+    var root = document.documentElement;
+
+    if (root.classList.contains('a11y-flash')) {
+        var layer = document.createElement('div');
+        layer.className = 'a11y-flash-layer';
+        document.body.appendChild(layer);
+        setTimeout(function () { layer.remove(); }, 900);
+    }
+
+    if (root.classList.contains('a11y-toast')) {
+        var toast = document.createElement('div');
+        toast.className = 'a11y-toast-box';
+        toast.setAttribute('role', 'status');
+        toast.textContent = text;
+        document.body.appendChild(toast);
+        setTimeout(function () { toast.remove(); }, 4000);
+    }
+
+    if (root.classList.contains('a11y-vibrate') && navigator.vibrate) {
+        navigator.vibrate([200, 100, 200]);
+    }
+};
+
+// Proteção contra clique acidental (trava o item por 1s após o clique)
+document.addEventListener('click', function (e) {
+    if (!document.documentElement.classList.contains('a11y-safe-click')) return;
+    var target = e.target.closest('a, button');
+    if (!target) return;
+    target.style.pointerEvents = 'none';
+    setTimeout(function () { target.style.pointerEvents = ''; }, 1000);
+}, true);
+
+// Menu do usuário: clicar no nome abre Perfil / Minhas conversas / Sair
 (function () {
     var menu = document.getElementById('userMenu');
     var toggle = document.getElementById('userMenuToggle');
@@ -196,5 +229,18 @@
     });
 })();
 </script>
+
+{{-- Filtros de cor para daltonismo (usados por html.a11y-daltonism-*) --}}
+<svg width="0" height="0" style="position:absolute; pointer-events:none;" aria-hidden="true" focusable="false">
+    <filter id="a11y-protanopia">
+        <feColorMatrix type="matrix" values="0.567 0.433 0 0 0  0.558 0.442 0 0 0  0 0.242 0.758 0 0  0 0 0 1 0"></feColorMatrix>
+    </filter>
+    <filter id="a11y-deuteranopia">
+        <feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"></feColorMatrix>
+    </filter>
+    <filter id="a11y-tritanopia">
+        <feColorMatrix type="matrix" values="0.95 0.05 0 0 0  0 0.433 0.567 0 0  0 0.475 0.525 0 0  0 0 0 1 0"></feColorMatrix>
+    </filter>
+</svg>
 </body>
 </html>

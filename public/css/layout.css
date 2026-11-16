@@ -361,3 +361,156 @@ img { max-width: 100%; height: auto; }
     .auth-wrapper { margin-top: 26px; }
     .footer-info { flex-direction: column; gap: 10px; align-items: center; }
 }
+
+/* ================= Perfil ================= */
+.profile-card { text-align: center; padding: 34px 30px; margin-bottom: 26px; }
+.profile-avatar {
+    width: 84px; height: 84px; border-radius: 50%;
+    background: #009639; color: #fff; font-size: 2.1rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px; border: 4px solid #d1fae5;
+}
+.profile-card h2 { font-size: 1.5rem; color: #111827; margin-bottom: 4px; }
+.profile-email { color: #6b7280; font-size: .92rem; margin-bottom: 12px; }
+.badge-role {
+    display: inline-block; padding: 5px 14px; border-radius: 999px;
+    font-size: .76rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+}
+.role-admin { background: #fee2e2; color: #b91c1c; }
+.role-doctor { background: #d1fae5; color: #047857; }
+.role-patient { background: #e0e7ff; color: #4338ca; }
+.profile-name-form { max-width: 420px; margin: 0 auto; }
+.profile-name-form button { margin-top: 4px; }
+
+.profile-section {
+    background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
+    padding: 26px 28px; margin-bottom: 26px;
+}
+.profile-section h2 {
+    font-size: 1.2rem; color: #111827; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 9px;
+}
+.profile-section h2 i { color: #009639; }
+.profile-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.profile-action {
+    display: flex; flex-direction: column; gap: 5px; padding: 18px;
+    border: 1px solid #e5e7eb; border-radius: 10px;
+    text-decoration: none; color: inherit; transition: border-color .2s, background .2s;
+}
+.profile-action:hover { border-color: #009639; background: #f0fdf4; text-decoration: none; }
+.profile-action i { color: #009639; font-size: 1.3rem; }
+.profile-action strong { color: #111827; }
+.profile-action small { color: #6b7280; line-height: 1.45; }
+.user-menu-dropdown a.is-active { background: #f0fdf4; color: #009639; }
+
+/* ================= Configurações de acessibilidade ================= */
+.a11y-section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.a11y-section-head h2 { margin-bottom: 0; }
+.a11y-saved { color: #009639; font-weight: 700; font-size: .85rem; opacity: 0; transition: opacity .3s; }
+.a11y-saved.visible { opacity: 1; }
+.a11y-groups { display: grid; gap: 16px; margin-top: 16px; }
+.a11y-group { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; background: #fff; }
+.a11y-group.is-on { border-color: #86efac; background: #f0fdf4; }
+.a11y-group-head { display: flex; align-items: center; gap: 14px; padding: 16px 18px; }
+.a11y-group-icon {
+    width: 42px; height: 42px; border-radius: 10px; background: #e6f7ed; color: #009639;
+    display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex: 0 0 auto;
+}
+.a11y-group-title { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.a11y-group-title strong { color: #111827; font-size: .98rem; }
+.a11y-group-title small { color: #6b7280; font-size: .8rem; }
+.a11y-group-body { padding: 4px 18px 14px; border-top: 1px dashed #e5e7eb; }
+.a11y-group-body.disabled { opacity: .45; pointer-events: none; }
+.a11y-option {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 12px 0; border-bottom: 1px solid #f3f4f6;
+}
+.a11y-option:last-child { border-bottom: none; }
+.a11y-option-text { display: flex; flex-direction: column; gap: 2px; }
+.a11y-option-text strong { font-size: .9rem; color: #111827; }
+.a11y-option-text small { font-size: .78rem; color: #6b7280; }
+.a11y-select {
+    padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 8px;
+    font-family: inherit; font-size: .85rem; background: #fff; max-width: 190px;
+}
+
+/* Chave deslizante: ativada = bolinha à esquerda e verde; desativada = à direita e cinza */
+.a11y-switch {
+    position: relative; flex: 0 0 auto;
+    width: 54px; height: 30px; border-radius: 999px;
+    background: #9ca3af; border: none; cursor: pointer; padding: 0;
+    transition: background .2s;
+}
+.a11y-switch .knob {
+    position: absolute; top: 3px; right: 3px;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+    transition: left .2s, right .2s;
+}
+.a11y-switch[aria-checked="true"] { background: #009639; }
+.a11y-switch[aria-checked="true"] .knob { right: auto; left: 3px; }
+.a11y-switch:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+
+/* ================= Efeitos das acessibilidades ================= */
+/* Visual — aumentar texto */
+html.a11y-bigfont body { zoom: 1.15; }
+
+/* Visual — alto contraste */
+html.a11y-contrast p, html.a11y-contrast li, html.a11y-contrast small,
+html.a11y-contrast span, html.a11y-contrast td, html.a11y-contrast th,
+html.a11y-contrast label, html.a11y-contrast h1, html.a11y-contrast h2,
+html.a11y-contrast h3, html.a11y-contrast h4, html.a11y-contrast strong { color: #000 !important; }
+html.a11y-contrast a { color: #0057b8 !important; text-decoration: underline !important; }
+html.a11y-contrast .btn-primary, html.a11y-contrast .btn-nav { background: #006d2f !important; color: #fff !important; }
+html.a11y-contrast .info-card, html.a11y-contrast .form-card, html.a11y-contrast .service-card,
+html.a11y-contrast .profile-section, html.a11y-contrast .a11y-group,
+html.a11y-contrast .local-card, html.a11y-contrast .stat-card { border: 2px solid #000 !important; }
+html.a11y-contrast .navbar { border-bottom: 2px solid #000; }
+html.a11y-contrast input, html.a11y-contrast select, html.a11y-contrast textarea { border: 2px solid #000 !important; color: #000 !important; }
+
+/* Visual — daltonismo (filtros SVG) */
+html.a11y-daltonism-protanopia body { filter: url(#a11y-protanopia); }
+html.a11y-daltonism-deuteranopia body { filter: url(#a11y-deuteranopia); }
+html.a11y-daltonism-tritanopia body { filter: url(#a11y-tritanopia); }
+
+/* Auditiva — flash de alerta */
+.a11y-flash-layer {
+    position: fixed; inset: 0; background: rgba(255, 214, 0, .45);
+    pointer-events: none; z-index: 9999;
+    animation: a11yflash .45s ease-in-out 2 alternate;
+}
+@keyframes a11yflash { from { opacity: 0; } to { opacity: 1; } }
+
+/* Auditiva — aviso em texto */
+.a11y-toast-box {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%);
+    background: #111827; color: #fff; padding: 12px 20px; border-radius: 10px;
+    font-size: .9rem; font-weight: 600; z-index: 10000;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .3); max-width: 90vw; text-align: center;
+}
+
+/* Motora — navegação por teclado (destaque no foco) */
+html.a11y-keyboard *:focus { outline: 4px solid #f59e0b !important; outline-offset: 3px !important; }
+
+/* Motora — alvos de clique maiores */
+html.a11y-bigclick button, html.a11y-bigclick .btn-primary,
+html.a11y-bigclick .btn-secondary, html.a11y-bigclick .btn-danger,
+html.a11y-bigclick .btn-nav, html.a11y-bigclick .nav-links > a {
+    min-height: 48px; padding-top: 12px; padding-bottom: 12px;
+}
+html.a11y-bigclick .profile-action, html.a11y-bigclick .service-card { min-height: 48px; }
+
+/* Cognitiva — reduzir animações */
+html.a11y-noanim *, html.a11y-noanim *::before, html.a11y-noanim *::after {
+    animation-duration: .001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001s !important;
+    scroll-behavior: auto !important;
+}
+
+/* Cognitiva — sublinhar links */
+html.a11y-underline a { text-decoration: underline !important; }
+
+/* Cognitiva — modo de leitura */
+html.a11y-reading main { max-width: 780px; margin-left: auto; margin-right: auto; }
+html.a11y-reading main p, html.a11y-reading main li { line-height: 2 !important; }

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // ---------- Autenticação (único acesso público) ----------
@@ -32,6 +33,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/contato', [ContactController::class, 'show'])->name('contact.show');
     Route::post('/contato', [ContactController::class, 'store'])->name('contact.store')
         ->middleware('throttle:6,1');
+
+    // Perfil do usuário (dados, funcionalidades do papel e acessibilidade)
+    Route::get('/perfil', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/perfil/nome', [ProfileController::class, 'saveName'])->name('profile.name');
+    Route::post('/perfil/acessibilidade', [ProfileController::class, 'saveSettings'])
+        ->name('profile.settings');
 
     // Chat com médicos (feed de publicações)
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');

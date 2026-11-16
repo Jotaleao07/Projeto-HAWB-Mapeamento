@@ -120,6 +120,12 @@
             const nearBottom = body.scrollHeight - body.scrollTop - body.clientHeight < 140;
             data.messages.forEach(m => { render(m); lastId = Math.max(lastId, m.id); });
             if (nearBottom) scrollDown();
+
+            // Acessibilidade: avisa quem tem flash/vibração/aviso em texto ligado
+            const novas = data.messages.filter(m => !m.mine);
+            if (novas.length && typeof window.hawbA11yAlert === 'function') {
+                window.hawbA11yAlert('Nova mensagem recebida de ' + novas[0].sender);
+            }
         } catch (e) { /* rede instável: tenta de novo no ciclo seguinte */ }
     }
 
