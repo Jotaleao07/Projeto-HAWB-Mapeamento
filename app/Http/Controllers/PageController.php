@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\TeamMember;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
 
 class PageController extends Controller
@@ -19,7 +21,54 @@ class PageController extends Controller
 
     public function locais(): View
     {
-        return view('pages.locais', ['locations' => $this->healthUnits()]);
+        $locations = $this->healthUnits();
+
+        // Agrupa as unidades por cidade para o fluxo de busca (cidade -> UPA/UBS -> detalhe).
+        $unitsByCity = [];
+        foreach ($locations as $unit) {
+            $unitsByCity[$unit['cityLabel']][] = $unit;
+        }
+
+        return view('pages.locais', [
+            'locations' => $locations,
+            'unitsByCity' => $unitsByCity,
+            'cities' => $this->bahiaCities(),
+        ]);
+    }
+
+    /**
+     * Todos os municípios da Bahia (IBGE) para o autocomplete da busca de cidade.
+     * Cache de 1 dia; se a API falhar, cai para as cidades com dados no projeto.
+     *
+     * @return list<string>
+     */
+    private function bahiaCities(): array
+    {
+        return Cache::remember('ba_cities', now()->addDay(), function (): array {
+            try {
+                $response = Http::timeout(8)
+                    ->withHeaders(['Accept' => 'application/json'])
+                    ->get('https://servicodados.ibge.gov.br/api/v1/localidades/estados/29/municipios');
+
+                if ($response->ok()) {
+                    $names = collect($response->json())
+                        ->pluck('nome')
+                        ->filter()
+                        ->unique()
+                        ->sort()
+                        ->values()
+                        ->all();
+
+                    if ($names !== []) {
+                        return $names;
+                    }
+                }
+            } catch (\Throwable $e) {
+                // API indisponível: segue com o fallback abaixo.
+            }
+
+            return ['Camaçari', "Dias d'Ávila", 'Lauro de Freitas', 'Salvador'];
+        });
     }
 
     /**

@@ -223,3 +223,75 @@
     .local-card { padding: 20px 16px; }
     .local-card h2 { font-size: 1.15rem; }
 }
+
+/* ================= Busca de cidade ================= */
+.city-search { margin-bottom: 28px; max-width: 560px; position: relative; z-index: 30; }
+.city-search label { display: block; font-size: 0.85rem; color: #4a5568; margin-bottom: 8px; font-weight: 600; }
+.search-box { position: relative; display: flex; align-items: center; }
+.search-box > .fa-magnifying-glass { position: absolute; left: 16px; color: #718096; font-size: .95rem; }
+.search-box input {
+    width: 100%; padding: 14px 16px 14px 44px; font-size: 1rem; font-family: inherit;
+    border: 1px solid #cbd5e0; border-radius: 8px; background: #fff; color: #2d3748;
+}
+.search-box input:focus {
+    border-color: #00a847; outline: none; box-shadow: 0 0 0 3px rgba(0, 168, 71, .15);
+}
+.search-hint { font-size: .78rem; color: #718096; margin-top: 6px; }
+.city-suggestions {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .12);
+    list-style: none; margin: 0; padding: 6px; max-height: 280px; overflow: auto; z-index: 40;
+}
+.city-suggestions li { padding: 10px 12px; border-radius: 6px; cursor: pointer; font-size: .93rem; color: #2d3748; }
+.city-suggestions li:hover, .city-suggestions li.active { background: #f0fdf4; color: #009639; }
+.city-suggestions li .match { font-weight: 700; color: #009639; }
+
+/* ================= Painel da cidade ================= */
+.city-panel {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 22px 24px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+}
+.city-panel-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.city-pin {
+    width: 48px; height: 48px; border-radius: 12px; background: #e6f7ed; color: #00a847;
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex: 0 0 auto;
+}
+.city-panel-info { flex: 1; min-width: 200px; }
+.city-panel-info h2 { font-size: 1.5rem; color: #1a202c; margin: 0; }
+.city-meta { color: #718096; font-size: .9rem; margin: 4px 0 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.city-dot { color: #cbd5e0; }
+.btn-link {
+    background: none; border: none; color: #00a847; font-weight: 600;
+    font-size: .88rem; cursor: pointer; font-family: inherit; padding: 6px 4px;
+}
+.btn-link:hover { text-decoration: underline; }
+.type-choice { margin-top: 20px; border-top: 1px dashed #e2e8f0; padding-top: 18px; }
+.type-choice-label { font-size: .85rem; font-weight: 600; color: #4a5568; margin-bottom: 10px; }
+.type-count { opacity: .75; font-weight: 400; }
+
+/* ================= Etapas ================= */
+.step-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.step-head h2 { font-size: 1.35rem; color: #1a202c; margin: 0; }
+
+/* ================= Detalhe da unidade ================= */
+.detail-card {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+    overflow: hidden; box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+}
+.detail-map iframe { width: 100%; height: 360px; border: 0; display: block; background: #e2e8f0; }
+.detail-body { padding: 24px; }
+.detail-body h2 { font-size: 1.5rem; color: #1a202c; margin: 0 0 16px; }
+.detail-body .btn-google-maps {
+    display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 6px;
+}
+
+@media (max-width: 768px) {
+    .detail-map iframe { height: 250px; }
+    .city-panel { padding: 18px 16px; }
+    .city-panel-info h2 { font-size: 1.25rem; }
+    .detail-body { padding: 18px 16px; }
+}
