@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\TeamMember;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
 
 class PageController extends Controller
@@ -37,34 +36,26 @@ class PageController extends Controller
     }
 
     /**
-     * Todos os municípios da Bahia (IBGE) para o autocomplete da busca de cidade.
-     * Cache de 1 dia; se a API falhar, cai para as cidades com dados no projeto.
+     * Todos os 417 municípios da Bahia (lista oficial do IBGE) para o autocomplete.
+     * Lido de arquivo local — sem chamada de rede, funciona em qualquer hospedagem.
+     * Fallback: as cidades com dados de unidades no projeto.
      *
      * @return list<string>
      */
     private function bahiaCities(): array
     {
-        return Cache::remember('ba_cities', now()->addDay(), function (): array {
+        return Cache::rememberForever('ba_cities', function (): array {
+            $file = database_path('data/bahia_municipios.json');
+
             try {
-                $response = Http::timeout(8)
-                    ->withHeaders(['Accept' => 'application/json'])
-                    ->get('https://servicodados.ibge.gov.br/api/v1/localidades/estados/29/municipios');
+                $raw = is_file($file) ? file_get_contents($file) : false;
+                $names = $raw !== false ? json_decode($raw, true) : null;
 
-                if ($response->ok()) {
-                    $names = collect($response->json())
-                        ->pluck('nome')
-                        ->filter()
-                        ->unique()
-                        ->sort()
-                        ->values()
-                        ->all();
-
-                    if ($names !== []) {
-                        return $names;
-                    }
+                if (is_array($names) && $names !== []) {
+                    return array_values(array_filter($names, 'is_string'));
                 }
             } catch (\Throwable $e) {
-                // API indisponível: segue com o fallback abaixo.
+                // Arquivo ilegível: segue com o fallback abaixo.
             }
 
             return ['Camaçari', "Dias d'Ávila", 'Lauro de Freitas', 'Salvador'];

@@ -277,6 +277,18 @@
 }
 .step-head h2 { font-size: 1.35rem; color: #1a202c; margin: 0; }
 
+/* ================= Cidade sem dados ================= */
+.empty-state {
+    text-align: center;
+    padding: 34px 20px;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e0;
+    border-radius: 10px;
+    color: #4a5568;
+}
+.empty-state i { font-size: 1.7rem; color: #00a847; margin-bottom: 10px; display: block; }
+.empty-state p { margin: 0; font-size: .95rem; }
+
 /* ================= Detalhe da unidade ================= */
 .detail-card {
     background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;

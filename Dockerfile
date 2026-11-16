@@ -4,8 +4,9 @@ FROM php:8.4-apache
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libonig-dev \
         libsqlite3-dev \
+        libcurl4-openssl-dev \
         unzip \
-    && docker-php-ext-install -j"$(nproc)" pdo_sqlite mbstring opcache \
+    && docker-php-ext-install -j"$(nproc)" pdo_sqlite mbstring opcache curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Composer 2
