@@ -5,8 +5,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libonig-dev \
         libsqlite3-dev \
         libcurl4-openssl-dev \
+        libpq-dev \
         unzip \
-    && docker-php-ext-install -j"$(nproc)" pdo_sqlite mbstring opcache curl \
+    && docker-php-ext-install -j"$(nproc)" pdo_sqlite mbstring opcache curl pdo_pgsql \
     && rm -rf /var/lib/apt/lists/*
 
 # Composer 2
