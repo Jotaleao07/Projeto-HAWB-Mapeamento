@@ -2,7 +2,8 @@
 
 @section('title', 'HAWB - O melhor mapeamento de saúde')
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
+    {{-- v= filemtime: muda a URL a cada deploy, o navegador nunca usa CSS antigo em cache --}}
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}?v={{ @filemtime(public_path('css/inicio.css')) }}">
 @endsection
 
 @section('content')
@@ -57,7 +58,8 @@
         <div class="quote-right-card">
             <div class="card-overlay">
                 <div class="card-badge">HAWB</div>
-                <img src="{{ asset('img/Captura de tela 2026-05-14 081829.png') }}" alt="">
+                <p>A medicina é o ponto de encontro entre o rigor da ciência e a profundidade da empatia, onde o conhecimento técnico só atinge sua plenitude quando guiado pelo cuidado humano.</p>
+                <div class="card-footer-text">MEDICINA É O MUNDO</div>
             </div>
         </div>
     </section>

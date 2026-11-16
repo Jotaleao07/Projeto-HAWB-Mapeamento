@@ -170,7 +170,8 @@
 
 .quote-right-card {
     flex: 1;
-    background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600&auto=format&fit=crop');
+    /* Foto: paciente sendo atendida por uma médica */
+    background-image: url('../img/atendimento.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 12px;
@@ -180,7 +181,7 @@
 }
 
 .card-overlay {
-    background: rgba(40, 60, 45, 0.75); /* Filtro escuro esverdeado */
+    background: rgba(40, 60, 45, 0.62); /* Filtro escuro esverdeado — deixa a foto aparecer */
     width: 100%;
     height: 100%;
     padding: 40px;
@@ -253,12 +254,14 @@
     width: 320px;
     text-align: left;
     cursor: pointer;
+    text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    text-decoration: none;
 }
 
 .card-icon {

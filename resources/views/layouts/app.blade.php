@@ -17,10 +17,12 @@
 </head>
 <body>
 
+@if(request()->routeIs('inicio', 'pages.inicio'))
 <div class="disclaimer" id="disclaimer">
     <strong>Aviso:</strong> As publicações médicas têm caráter informativo e não substituem uma consulta profissional.
     Em caso de emergência, procure atendimento imediato ou ligue 192.
 </div>
+@endif
 
 <header class="navbar">
     <div class="logo-container">
@@ -128,11 +130,11 @@
 @stack('scripts')
 
 <script>
-// Aviso de emergência: some com fade 1 minuto após abrir a página
+// Aviso de emergência: some com fade 15 segundos após abrir a página inicial
 (function () {
     var aviso = document.getElementById('disclaimer');
     if (!aviso) return;
-    setTimeout(function () { aviso.classList.add('hide'); }, 60000);
+    setTimeout(function () { aviso.classList.add('hide'); }, 15000);
 })();
 
 // Menu do usuário: clicar no nome abre Minhas conversas / Sair

@@ -23,7 +23,7 @@ class TeamMemberSeeder extends Seeder
 
         $members = [
             [
-                'name' => 'João Victor Leão Silva',
+                'name' => 'João Victor',
                 'role' => 'Desenvolvedor full-stack',
                 'bio' => 'Técnico em informática para internet. Responsável pela estruturação do front-end e pela integração com o Laravel.',
                 'photo' => 'jota.png',
@@ -77,9 +77,11 @@ class TeamMemberSeeder extends Seeder
         ];
 
         foreach ($members as $index => $member) {
+            // Chave = posição (order): permite renomear membros sem duplicar registros.
             TeamMember::updateOrCreate(
-                ['name' => $member['name']],
+                ['order' => $index],
                 [
+                    'name' => $member['name'],
                     'role' => $member['role'],
                     'bio' => $member['bio'],
                     'photo' => $member['photo'],
