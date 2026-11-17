@@ -21,14 +21,45 @@
             @endphp
             <span class="badge-role {{ $roleClass }}">{{ $roleLabel }}</span>
 
+            @php
+                $liberaNome = $user->name_changed_at ? $user->name_changed_at->copy()->addHours(24) : null;
+                $nomeBloqueado = $liberaNome !== null && $liberaNome->isFuture();
+                $esperaNome = '';
+                if ($nomeBloqueado) {
+                    $seg = (int) abs(now()->diffInSeconds($liberaNome, false));
+                    $h = intdiv($seg, 3600);
+                    $m = intdiv($seg % 3600, 60);
+                    $esperaNome = $h > 0 ? "{$h}h" . ($m > 0 ? " e {$m}min" : '') : ($m > 0 ? "{$m}min" : 'menos de 1 min');
+                }
+            @endphp
+
             <form method="POST" action="{{ route('profile.name') }}" class="profile-name-form">
                 @csrf
                 <div class="form-group" style="margin: 22px 0 12px; text-align: left;">
                     <label for="profile-name-input">Nome exibido</label>
-                    <input type="text" id="profile-name-input" name="name" value="{{ old('name', $user->name) }}"
+                    <input type="text" id="profile-name-input" name="name"
+                           value="{{ old('name', $user->name) }}"
+                           {{ $nomeBloqueado ? 'disabled' : '' }}
                            required maxlength="255">
                 </div>
-                <button type="submit" class="btn-primary">Salvar nome</button>
+                <div class="form-group" style="margin: 0 0 12px; text-align: left;">
+                    <label for="profile-password-input">Senha atual</label>
+                    <input type="password" id="profile-password-input" name="password"
+                           placeholder="Digite sua senha para confirmar"
+                           {{ $nomeBloqueado ? 'disabled' : '' }}
+                           autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn-primary" {{ $nomeBloqueado ? 'disabled' : '' }}>
+                    {{ $nomeBloqueado ? 'Aguarde para alterar' : 'Salvar nome' }}
+                </button>
+                <p class="profile-name-hint">
+                    @if($nomeBloqueado)
+                        <strong>Você já alterou o nome recentemente.</strong>
+                        Próxima alteração liberada em {{ $esperaNome }}.
+                    @else
+                        Por segurança, a troca de nome exige sua senha e pode ser feita uma vez a cada 24 horas.
+                    @endif
+                </p>
             </form>
         </div>
 

@@ -135,6 +135,16 @@
     setTimeout(function () { aviso.classList.add('hide'); }, 15000);
 })();
 
+// Mensagens de sucesso/erro (flash): somem com fade após 10 segundos
+(function () {
+    var alerts = document.querySelectorAll('.alert');
+    alerts.forEach(function (el) {
+        setTimeout(function () { el.classList.add('hide'); }, 10000);
+        // some de vez do layout depois do fade
+        setTimeout(function () { el.remove(); }, 11500);
+    });
+})();
+
 // ---------- Acessibilidade: efeitos globais ----------
 // Alertas visuais/toast/vibração — chamado pelo chat ao receber mensagem nova.
 window.hawbA11yAlert = function (text) {
@@ -242,5 +252,11 @@ document.addEventListener('click', function (e) {
         <feColorMatrix type="matrix" values="0.95 0.05 0 0 0  0 0.433 0.567 0 0  0 0.475 0.525 0 0  0 0 0 1 0"></feColorMatrix>
     </filter>
 </svg>
+
+{{-- VLibras: tradutor de Libras para pessoas surdas (widget oficial do governo) --}}
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
 </body>
 </html>

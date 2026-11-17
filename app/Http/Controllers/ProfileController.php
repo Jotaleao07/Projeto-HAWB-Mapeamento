@@ -21,16 +21,53 @@ class ProfileController extends Controller
         ]);
     }
 
-    /** Atualiza o nome exibido na conta. */
+    /** Atualiza o nome exibido na conta: exige a senha atual e tem bloqueio de 24h. */
     public function saveName(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'current_password'],
+        ], [
+            'password.required' => 'Digite sua senha atual para confirmar a alteração.',
+            'password.current_password' => 'Senha incorreta. Confira sua senha e tente de novo.',
         ]);
 
-        $request->user()->update($data);
+        $user = $request->user();
+        $novoNome = trim($data['name']);
 
-        return back()->with('success', 'Nome atualizado com sucesso.');
+        // Só conta como alteração quando o nome realmente muda.
+        if ($novoNome !== $user->name) {
+            if ($user->name_changed_at !== null) {
+                $liberaEm = $user->name_changed_at->copy()->addHours(24);
+
+                if ($liberaEm->isFuture()) {
+                    $segundos = (int) abs(now()->diffInSeconds($liberaEm, false));
+                    $horas = intdiv($segundos, 3600);
+                    $minutos = intdiv($segundos % 3600, 60);
+
+                    if ($horas > 0) {
+                        $espera = "{$horas}h" . ($minutos > 0 ? " e {$minutos}min" : '');
+                    } elseif ($minutos > 0) {
+                        $espera = "{$minutos}min";
+                    } else {
+                        $espera = 'menos de 1 min';
+                    }
+
+                    return back()->withErrors([
+                        'name' => "Você já alterou o nome recentemente. Só é possível alterar novamente em {$espera}.",
+                    ])->withInput();
+                }
+            }
+
+            $user->update([
+                'name' => $novoNome,
+                'name_changed_at' => now(),
+            ]);
+
+            return back()->with('success', 'Nome atualizado com sucesso.');
+        }
+
+        return back()->with('success', 'Nome já está atualizado.');
     }
 
     /**
