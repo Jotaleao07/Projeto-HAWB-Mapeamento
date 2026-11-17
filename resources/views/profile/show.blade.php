@@ -11,7 +11,12 @@
 
         {{-- ---------- Dados da conta ---------- --}}
         <div class="form-card profile-card">
-            <div class="profile-avatar" aria-hidden="true">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
+            @if($user->profile_photo)
+                <img class="profile-avatar profile-avatar-img"
+                     src="{{ $user->profile_photo }}" alt="Foto de perfil de {{ $user->name }}">
+            @else
+                <div class="profile-avatar" aria-hidden="true">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
+            @endif
             <h2>{{ $user->name }}</h2>
             <p class="profile-email">{{ $user->email }}</p>
 
@@ -61,6 +66,44 @@
                     @endif
                 </p>
             </form>
+
+            {{-- ---------- Foto de perfil ---------- --}}
+            <div class="profile-photo-block">
+                <h3><i class="fa-solid fa-camera" aria-hidden="true"></i> Foto de perfil</h3>
+
+                <form method="POST" action="{{ route('profile.photo') }}" id="photoForm">
+                    @csrf
+                    <input type="hidden" name="photo" id="photoData">
+                    <input type="file" id="photoInput" accept="image/png,image/jpeg,image/webp" hidden>
+
+                    <div class="photo-actions">
+                        <button type="button" class="btn-secondary" id="photoPick">
+                            <i class="fa-solid fa-image" aria-hidden="true"></i> Escolher foto
+                        </button>
+                        <button type="submit" class="btn-primary" id="photoSave" disabled>
+                            Salvar foto
+                        </button>
+                    </div>
+
+                    <p class="profile-name-hint" id="photoHint">
+                        JPG, PNG ou WEBP — a foto é comprimida (máx. 320px) antes de salvar
+                        e fica guardada na sua conta.
+                    </p>
+                    @error('photo')
+                        <p class="profile-name-hint" style="color:#b91c1c;">{{ $message }}</p>
+                    @enderror
+                </form>
+
+                @if($user->profile_photo)
+                    <form method="POST" action="{{ route('profile.photo.remove') }}"
+                          onsubmit="return confirm('Remover sua foto de perfil?');">
+                        @csrf
+                        <button type="submit" class="btn-link-photo">
+                            Remover foto atual
+                        </button>
+                    </form>
+                @endif
+            </div>
         </div>
 
         {{-- ---------- Funcionalidades exclusivas do papel ---------- --}}
@@ -292,5 +335,65 @@
     var sel = document.getElementById('daltonism-select');
     if (sel) sel.addEventListener('change', scheduleSave);
 })();
+</script>
+
+<script>
+    // Foto de perfil: comprime no navegador (canvas, máx. 320px, JPEG 78%)
+    // antes de enviar — o servidor guarda o base64 no banco.
+    (function () {
+        var input = document.getElementById('photoInput');
+        var field = document.getElementById('photoData');
+        var save = document.getElementById('photoSave');
+        var pick = document.getElementById('photoPick');
+        var hint = document.getElementById('photoHint');
+        if (!input || !field || !save || !pick) return;
+
+        pick.addEventListener('click', function () { input.click(); });
+
+        input.addEventListener('change', function () {
+            var file = input.files && input.files[0];
+            if (!file) return;
+
+            if (!/^image\/(jpeg|png|webp)$/.test(file.type)) {
+                hint.textContent = 'Formato não suportado. Use JPG, PNG ou WEBP.';
+                return;
+            }
+            if (file.size > 10 * 1024 * 1024) {
+                hint.textContent = 'Imagem muito grande (máx. 10 MB).';
+                return;
+            }
+
+            var url = URL.createObjectURL(file);
+            var img = new Image();
+
+            img.onload = function () {
+                var max = 320;
+                var w = img.naturalWidth, h = img.naturalHeight;
+                var escala = Math.min(1, max / Math.max(w, h));
+                var cw = Math.max(1, Math.round(w * escala));
+                var ch = Math.max(1, Math.round(h * escala));
+
+                var canvas = document.createElement('canvas');
+                canvas.width = cw;
+                canvas.height = ch;
+                var ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, cw, ch);
+                ctx.drawImage(img, 0, 0, cw, ch);
+
+                URL.revokeObjectURL(url);
+                field.value = canvas.toDataURL('image/jpeg', 0.78);
+                save.disabled = false;
+                hint.textContent = 'Pronto! Clique em "Salvar foto" para confirmar (' + cw + '×' + ch + ' px).';
+            };
+
+            img.onerror = function () {
+                URL.revokeObjectURL(url);
+                hint.textContent = 'Não foi possível ler a imagem escolhida.';
+            };
+
+            img.src = url;
+        });
+    })();
 </script>
 @endpush

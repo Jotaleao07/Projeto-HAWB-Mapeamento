@@ -56,7 +56,12 @@
                     <button type="button" class="user-chip user-menu-toggle" id="userMenuToggle"
                             aria-haspopup="true" aria-expanded="false" aria-controls="userMenuDropdown"
                             title="{{ auth()->user()->email }}">
-                        <i class="fa-solid fa-user"></i> <span class="user-chip-name">{{ auth()->user()->name }}</span>
+                        @if(auth()->user()->profile_photo)
+                            <img class="user-chip-avatar" src="{{ auth()->user()->profile_photo }}" alt="">
+                        @else
+                            <i class="fa-solid fa-user"></i>
+                        @endif
+                        <span class="user-chip-name">{{ auth()->user()->name }}</span>
                         <i class="fa-solid fa-chevron-down user-chip-caret" aria-hidden="true"></i>
                     </button>
                     <div class="user-menu-dropdown" id="userMenuDropdown" role="menu">

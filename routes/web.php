@@ -40,6 +40,8 @@ Route::middleware(['auth', 'banned'])->group(function () {
     // Perfil do usuário (dados, funcionalidades do papel e acessibilidade)
     Route::get('/perfil', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/perfil/nome', [ProfileController::class, 'saveName'])->name('profile.name');
+    Route::post('/perfil/foto', [ProfileController::class, 'savePhoto'])->name('profile.photo');
+    Route::post('/perfil/foto/remover', [ProfileController::class, 'removePhoto'])->name('profile.photo.remove');
     Route::post('/perfil/acessibilidade', [ProfileController::class, 'saveSettings'])
         ->name('profile.settings');
 

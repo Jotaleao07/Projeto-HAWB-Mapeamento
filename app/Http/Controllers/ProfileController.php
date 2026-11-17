@@ -71,6 +71,73 @@ class ProfileController extends Controller
     }
 
     /**
+     * Salva a foto de perfil (base64 já comprimido no navegador, máx. 320px).
+     * Fica na coluna profile_photo do banco — sobrevive a deploys (disco é apagado).
+     */
+    public function savePhoto(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'photo' => ['required', 'string', 'max:400000'],
+        ], [
+            'photo.required' => 'Escolha uma imagem para usar como foto de perfil.',
+        ]);
+
+        $photo = trim($data['photo']);
+
+        if (! preg_match('/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/', $photo)) {
+            return back()->with('error', 'Arquivo inválido. Envie uma imagem JPG, PNG ou WEBP.');
+        }
+
+        $binary = base64_decode(substr($photo, strpos($photo, ',') + 1), true);
+
+        if ($binary === false || $binary === '' || strlen($binary) > 300 * 1024) {
+            return back()->with('error', 'A imagem precisa ter no máximo 300 KB.');
+        }
+
+        // Compressão extra quando há GD (no Render valida só o formato/tamanho).
+        if (function_exists('imagecreatefromstring')) {
+            $img = @imagecreatefromstring($binary);
+
+            if ($img === false) {
+                return back()->with('error', 'Não foi possível processar a imagem escolhida.');
+            }
+
+            $largura = imagesx($img);
+            $altura = imagesy($img);
+            $max = 480;
+
+            if ($largura > $max || $altura > $max) {
+                $escala = min($max / $largura, $max / $altura);
+                $nw = max(1, (int) round($largura * $escala));
+                $nh = max(1, (int) round($altura * $escala));
+                $redim = imagecreatetruecolor($nw, $nh);
+                imagecopyresampled($redim, $img, 0, 0, 0, 0, $nw, $nh, $largura, $altura);
+                imagedestroy($img);
+                $img = $redim;
+            }
+
+            ob_start();
+            imagejpeg($img, null, 78);
+            $binary = ob_get_clean();
+            imagedestroy($img);
+
+            $photo = 'data:image/jpeg;base64,' . base64_encode($binary);
+        }
+
+        $request->user()->update(['profile_photo' => $photo]);
+
+        return back()->with('success', 'Foto de perfil atualizada.');
+    }
+
+    /** Remove a foto de perfil (volta para a inicial do nome). */
+    public function removePhoto(Request $request): RedirectResponse
+    {
+        $request->user()->update(['profile_photo' => null]);
+
+        return back()->with('success', 'Foto de perfil removida.');
+    }
+
+    /**
      * Salva as configurações de acessibilidade (chamado por fetch ao alternar cada chave).
      * Os dados são normalizados contra os padrões: só chaves conhecidas entram no banco.
      */

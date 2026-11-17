@@ -389,6 +389,31 @@ img { max-width: 100%; height: auto; }
 .profile-name-form input:disabled,
 .profile-name-form button:disabled { opacity: .6; cursor: not-allowed; }
 
+/* Foto de perfil */
+.profile-avatar-img { object-fit: cover; }
+.user-chip-avatar {
+    width: 26px; height: 26px; border-radius: 50%; object-fit: cover;
+    vertical-align: middle; margin-right: 6px; border: 2px solid #d1fae5;
+}
+.profile-photo-block {
+    max-width: 420px; margin: 26px auto 0; padding-top: 22px;
+    border-top: 1px dashed #e5e7eb; text-align: center;
+}
+.profile-photo-block h3 {
+    font-size: 1rem; color: #111827; margin-bottom: 14px;
+}
+.profile-photo-block h3 i { color: #009639; margin-right: 6px; }
+.photo-actions {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 4px;
+}
+.photo-actions .btn-primary:disabled { background: #9ca3af; cursor: not-allowed; }
+.btn-link-photo {
+    background: none; border: none; color: #b91c1c; font-family: inherit;
+    font-size: .84rem; font-weight: 600; cursor: pointer; margin-top: 12px;
+    text-decoration: underline; padding: 4px;
+}
+.btn-link-photo:hover { color: #7f1d1d; }
+
 .profile-section {
     background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
     padding: 26px 28px; margin-bottom: 26px;
