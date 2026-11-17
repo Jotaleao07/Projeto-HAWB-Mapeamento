@@ -117,8 +117,8 @@
     <script>
         // Base de dados do projeto (vinda do controller)
         window.HAWB_CITIES = @json($cities);
-        window.HAWB_UNITS = @json($locations);
         window.HAWB_UNITS_BY_CITY = @json($unitsByCity);
+        window.HAWB_CITY_COORDS = @json($cityCoords);
     </script>
     <script src="{{ asset('js/locais.js') }}?v={{ @filemtime(public_path('js/locais.js')) }}"></script>
 @endsection

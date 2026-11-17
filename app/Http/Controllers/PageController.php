@@ -20,17 +20,11 @@ class PageController extends Controller
 
     public function locais(): View
     {
-        $locations = $this->healthUnits();
-
-        // Agrupa as unidades por cidade para o fluxo de busca (cidade -> UPA/UBS -> detalhe).
-        $unitsByCity = [];
-        foreach ($locations as $unit) {
-            $unitsByCity[$unit['cityLabel']][] = $unit;
-        }
+        $data = $this->unitsData();
 
         return view('pages.locais', [
-            'locations' => $locations,
-            'unitsByCity' => $unitsByCity,
+            'unitsByCity' => $data['unitsByCity'],
+            'cityCoords' => $data['cityCoords'],
             'cities' => $this->bahiaCities(),
         ]);
     }
@@ -60,6 +54,94 @@ class PageController extends Controller
 
             return ['Camaçari', "Dias d'Ávila", 'Lauro de Freitas', 'Salvador'];
         });
+    }
+
+    /**
+     * UPAs e UBS de toda a Bahia (fonte CNES — database/data/bahia_unidades.json).
+     *
+     * Agrupa por cidade para o fluxo de busca (cidade -> UPA/UBS -> detalhe) e
+     * devolve também as coordenadas de cada cidade (distância + mapa).
+     * Cacheia por filemtime: trocou o JSON, o cache expira sozinho.
+     *
+     * @return array{unitsByCity: array<string, list<array<string, mixed>>>, cityCoords: array<string, array{0: float, 1: float}>}
+     */
+    private function unitsData(): array
+    {
+        $file = database_path('data/bahia_unidades.json');
+
+        if (! is_file($file)) {
+            return $this->fallbackUnits();
+        }
+
+        try {
+            $data = Cache::rememberForever('ba_units_' . (int) @filemtime($file), function () use ($file): ?array {
+                $raw = file_get_contents($file);
+                $json = $raw !== false ? json_decode($raw, true) : null;
+
+                if (! is_array($json) || ! isset($json['cities']) || ! is_array($json['cities']) || $json['cities'] === []) {
+                    return null;
+                }
+
+                $unitsByCity = [];
+                $cityCoords = [];
+
+                foreach ($json['cities'] as $cidade => $entry) {
+                    $units = [];
+
+                    foreach ($entry['units'] ?? [] as $unit) {
+                        $units[] = [
+                            'id' => $unit['id'] ?? '',
+                            'type' => $unit['type'] ?? 'ubs',
+                            'cityLabel' => $cidade,
+                            'name' => $unit['name'] ?? '',
+                            'address' => $unit['address'] ?? '',
+                            'phone' => $unit['phone'] ?? 'Não informado',
+                            'hours' => $unit['hours'] ?? 'Horário não informado',
+                            'services' => $unit['services'] ?? [],
+                            'lat' => $unit['lat'] ?? null,
+                            'lng' => $unit['lng'] ?? null,
+                        ];
+                    }
+
+                    if ($units !== []) {
+                        $unitsByCity[$cidade] = $units;
+                    }
+
+                    if (isset($entry['coords'][0], $entry['coords'][1])) {
+                        $cityCoords[$cidade] = [$entry['coords'][0], $entry['coords'][1]];
+                    }
+                }
+
+                return ['unitsByCity' => $unitsByCity, 'cityCoords' => $cityCoords];
+            });
+        } catch (\Throwable $e) {
+            $data = null;
+        }
+
+        return is_array($data) ? $data : $this->fallbackUnits();
+    }
+
+    /**
+     * Fallback: unidades de exemplo caso o arquivo CNES esteja ausente.
+     *
+     * @return array{unitsByCity: array<string, list<array<string, mixed>>>, cityCoords: array<string, array{0: float, 1: float}>}
+     */
+    private function fallbackUnits(): array
+    {
+        $unitsByCity = [];
+        foreach ($this->healthUnits() as $unit) {
+            $unitsByCity[$unit['cityLabel']][] = $unit;
+        }
+
+        return [
+            'unitsByCity' => $unitsByCity,
+            'cityCoords' => [
+                'Salvador' => [-12.9777, -38.5016],
+                'Camaçari' => [-12.6975, -38.3161],
+                'Lauro de Freitas' => [-12.8935, -38.3238],
+                "Dias d'Ávila" => [-12.6167, -38.2833],
+            ],
+        ];
     }
 
     /**

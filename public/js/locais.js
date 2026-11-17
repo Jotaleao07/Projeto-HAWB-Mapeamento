@@ -2,14 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const CITIES = window.HAWB_CITIES || [];
     const UNITS_BY_CITY = window.HAWB_UNITS_BY_CITY || {};
 
-    // Coordenadas das cidades que já têm dados no projeto (evita chamada externa)
-    const KNOWN_COORDS = {
-        'salvador': [-12.9777, -38.5016],
-        'camacari': [-12.6975, -38.3161],
-        'lauro de freitas': [-12.8935, -38.3238],
-        "dias d'ávila": [-12.6167, -38.2833],
-    };
-
     const input = document.getElementById('cityInput');
     const list = document.getElementById('citySuggestions');
     const cityPanel = document.getElementById('cityPanel');
@@ -27,6 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let highlightIndex = -1;
 
     const normalize = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+
+    // Coordenadas das cidades (vêm do CNES junto com as unidades) — evita chamada externa
+    const CITY_COORDS = {};
+    Object.entries(window.HAWB_CITY_COORDS || {}).forEach(([name, coords]) => {
+        CITY_COORDS[normalize(name)] = coords;
+    });
 
     /* ================= Autocompletar da cidade ================= */
 
@@ -115,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function getCityCoords(name) {
         const key = normalize(name);
-        if (KNOWN_COORDS[key]) return KNOWN_COORDS[key];
+        if (CITY_COORDS[key]) return CITY_COORDS[key];
         try {
             const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q='
                 + encodeURIComponent(name + ', Bahia, Brasil');
@@ -291,9 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
             services.appendChild(span);
         });
 
+        // Com coordenadas do CNES o mapa centraliza exato na unidade; sem, busca por texto
+        const hasCoords = typeof unit.lat === 'number' && typeof unit.lng === 'number';
         const query = unit.name + ', ' + unit.address + ', ' + unit.cityLabel + ', BA, Brasil';
+        const mapQuery = hasCoords ? unit.lat + ',' + unit.lng : query;
         document.getElementById('mapFrame').src =
-            'https://maps.google.com/maps?q=' + encodeURIComponent(query) + '&z=15&output=embed';
+            'https://maps.google.com/maps?q=' + encodeURIComponent(mapQuery) + '&z=15&output=embed';
         document.getElementById('directionsLink').href =
             'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(query);
 
