@@ -31,7 +31,25 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        // Conta reativada: descarta um eventual motivo de banimento antigo.
+        $request->session()->forget('ban_reason');
+
         return redirect()->intended(route('inicio'));
+    }
+
+    /**
+     * Tela de conta banida: mostra o motivo escrito pelo administrador.
+     * Sem motivo na sessão (ex.: acesso direto), volta para o login.
+     */
+    public function showBanned(): View|RedirectResponse
+    {
+        $reason = session('ban_reason');
+
+        if ($reason === null || $reason === '') {
+            return redirect()->route('login');
+        }
+
+        return view('auth.banned', ['reason' => $reason]);
     }
 
     public function showRegister(): View

@@ -87,6 +87,12 @@
                         <strong>Painel Administrativo</strong>
                         <small>Aprove contas médicas e acompanhe os contatos</small>
                     </a>
+
+                    <a href="{{ route('admin.accounts') }}" class="profile-action">
+                        <i class="fa-solid fa-clipboard-user" aria-hidden="true"></i>
+                        <strong>Registro de Contas</strong>
+                        <small>Bloquee o chat ou bana contas de pacientes e médicos</small>
+                    </a>
                 @endif
             </div>
         </div>

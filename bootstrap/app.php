@@ -18,6 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'doctor' => \App\Http\Middleware\EnsureUserIsApprovedDoctor::class,
+            'banned' => \App\Http\Middleware\EnsureUserIsNotBanned::class,
+            'chat.allowed' => \App\Http\Middleware\EnsureChatAllowed::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

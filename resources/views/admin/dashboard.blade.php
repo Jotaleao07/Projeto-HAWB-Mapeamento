@@ -7,6 +7,9 @@
         <div class="section-header">
             <h1>Painel Administrativo</h1>
             <p class="subtitle">Aprovação de contas médicas e mensagens recebidas pelo formulário de contato.</p>
+            <a href="{{ route('admin.accounts') }}" class="btn-secondary" style="margin-top: 10px;">
+                <i class="fa-solid fa-clipboard-user"></i> Registro de Contas
+            </a>
         </div>
 
         <div class="stats-grid">

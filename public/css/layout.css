@@ -521,3 +521,71 @@ html.a11y-underline a { text-decoration: underline !important; }
 /* Cognitiva — modo de leitura */
 html.a11y-reading main { max-width: 780px; margin-left: auto; margin-right: auto; }
 html.a11y-reading main p, html.a11y-reading main li { line-height: 2 !important; }
+
+/* ================= Registro de contas (admin) ================= */
+.btn-sm { padding: 6px 12px; font-size: .8rem; border-radius: 6px; }
+.actions-cell { white-space: nowrap; }
+.actions-cell form { display: inline-block; margin-right: 6px; }
+
+.status-badge {
+    display: inline-block; padding: 4px 10px; border-radius: 999px;
+    font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+}
+.status-on { background: #d1fae5; color: #047857; }
+.status-off { background: #fef3c7; color: #92400e; }
+.status-ban { background: #fee2e2; color: #b91c1c; }
+
+.accounts-note {
+    margin-top: 22px; font-size: .87rem; color: #6b7280; line-height: 1.6;
+    background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px;
+}
+.accounts-note i { color: #009639; margin-right: 6px; }
+
+/* Modal de banimento */
+.ban-overlay {
+    position: fixed; inset: 0; background: rgba(17, 24, 39, .55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2147483640; padding: 20px;
+}
+.ban-overlay[hidden] { display: none; }
+.ban-modal {
+    background: #fff; border-radius: 14px; padding: 26px 28px;
+    max-width: 520px; width: 100%; box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+}
+.ban-modal h2 { font-size: 1.25rem; color: #111827; margin-bottom: 10px; }
+.ban-modal p { font-size: .92rem; color: #4b5563; line-height: 1.6; margin-bottom: 16px; }
+.ban-modal label { display: block; font-weight: 600; font-size: .88rem; color: #111827; margin-bottom: 6px; }
+.ban-modal textarea {
+    width: 100%; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 10px 12px;
+    font-family: inherit; font-size: .92rem; resize: vertical; min-height: 96px;
+}
+.ban-modal textarea:focus { outline: none; border-color: #009639; }
+.ban-hint { font-size: .8rem !important; color: #6b7280 !important; margin: 6px 0 16px !important; }
+.ban-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
+/* ================= Tela de conta banida ================= */
+.banned-page {
+    min-height: 60vh; display: flex; align-items: center; justify-content: center;
+    padding: 50px 20px;
+}
+.banned-card {
+    background: #fff; border: 2px solid #fee2e2; border-radius: 16px;
+    max-width: 620px; width: 100%; padding: 42px 36px; text-align: center;
+    box-shadow: 0 18px 45px rgba(17, 24, 39, .12);
+}
+.banned-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 74px; height: 74px; border-radius: 50%;
+    background: #fee2e2; color: #dc2626; font-size: 2rem; margin-bottom: 18px;
+}
+.banned-card h1 { font-size: 1.7rem; color: #b91c1c; margin-bottom: 14px; }
+.banned-text { font-size: 1rem; color: #374151; line-height: 1.6; margin-bottom: 24px; }
+.banned-reason {
+    background: #f9fafb; border: 1px dashed #d1d5db; border-radius: 10px;
+    padding: 18px 20px; text-align: left; margin-bottom: 28px;
+}
+.banned-reason-label {
+    display: block; font-size: .76rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .6px; color: #6b7280; margin-bottom: 8px;
+}
+.banned-reason p { font-size: 1rem; color: #111827; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
